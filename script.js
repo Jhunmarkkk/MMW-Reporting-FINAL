@@ -1,4 +1,24 @@
 // Smooth Parallax Scroll Effects with Animation Reset + Morphing Features + Grainy Design
+// Scroll to Top Function
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// Show/hide back to top button based on scroll position
+function handleBackToTopButton() {
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    if (!backToTopBtn) return;
+    
+    if (window.pageYOffset > 300 || document.documentElement.scrollTop > 300) {
+        backToTopBtn.style.display = 'flex';
+    } else {
+        backToTopBtn.style.display = 'none';
+    }
+}
+
 // Fullscreen Toggle Function
 function toggleFullscreen() {
     const elem = document.documentElement;
@@ -784,6 +804,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Smooth scroll start
     window.addEventListener('scroll', onScroll, { passive: true });
+    
+    // Show/hide back to top button on scroll
+    window.addEventListener('scroll', handleBackToTopButton, { passive: true });
+    // Check on initial load
+    handleBackToTopButton();
     
     // Initial parallax update
     updateParallax();

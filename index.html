@@ -77,17 +77,17 @@
             <span>SCROLL</span>
             <div class="scroll-line"></div>
         </div>
-        
-        <!-- Fullscreen Toggle Button -->
-        <button class="fullscreen-toggle-btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="Toggle Fullscreen">
-            <svg class="fullscreen-icon" id="fullscreenIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
-            </svg>
-            <svg class="fullscreen-exit-icon" id="fullscreenExitIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
-                <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>
-            </svg>
-        </button>
     </section>
+    
+    <!-- Fullscreen Toggle Button (Outside hero section to maintain position) -->
+    <button class="fullscreen-toggle-btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="Toggle Fullscreen">
+        <svg class="fullscreen-icon" id="fullscreenIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+        </svg>
+        <svg class="fullscreen-exit-icon" id="fullscreenExitIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+            <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>
+        </svg>
+    </button>
 
     <!-- Section 1: Introduction -->
     <section class="content-section section-1" data-section="1">
@@ -826,6 +826,13 @@
             </div>
         </div>
     </section>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top-trigger" id="backToTopBtn" onclick="scrollToTop()" title="Back to Top" style="display: none;">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="rgba(255,255,255,0.3)">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </div>
 
     <!-- Secret Admin Login Button (Hidden) -->
     <div class="admin-login-trigger" onclick="showAdminLogin()" title="Admin Access">
