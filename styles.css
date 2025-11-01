@@ -66,51 +66,49 @@ body {
     }
 }
 
-/* Custom Cursor - Redesigned Modern Style */
+/* Custom Cursor - Redesigned Wide Circular Style */
 :root {
-    --cursor-width: 48px;
-    --cursor-height: 32px;
-    --cursor-dot-size: 6px;
+    --cursor-size: 90px;
+    --cursor-dot-size: 12px;
 }
 
 .custom-cursor {
     position: fixed;
-    width: var(--cursor-width);
-    height: var(--cursor-height);
-    border: 1.5px solid rgba(255, 255, 255, 0.9);
+    width: var(--cursor-size);
+    height: var(--cursor-size);
+    border: 2px solid rgba(255, 255, 255, 0.95);
     border-radius: 50%;
     pointer-events: none;
     z-index: 99999;
     transform: translate(-50%, -50%);
-    transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1), 
-                height 0.3s cubic-bezier(0.23, 1, 0.32, 1), 
-                border-color 0.3s ease,
-                background 0.3s ease,
-                box-shadow 0.3s ease;
-    background: radial-gradient(ellipse at center, 
-                rgba(255, 255, 255, 0.1) 0%, 
-                rgba(255, 255, 255, 0.05) 40%,
-                transparent 70%);
+    transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1),
+                width 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+                height 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+                border-color 0.2s ease,
+                opacity 0.2s ease;
+    background: transparent;
+    /* Blur moved to edges/sides with enhanced box-shadow */
     box-shadow: 
-                -20px 0 30px rgba(255, 255, 255, 0.15),
-                20px 0 30px rgba(255, 255, 255, 0.15),
-                0 0 40px rgba(255, 255, 255, 0.1),
-                0 0 0 2px rgba(0, 0, 0, 0.3),
-                0 0 0 3px rgba(255, 255, 255, 0.9);
-    filter: blur(0);
+                0 0 30px rgba(255, 255, 255, 0.4),
+                0 0 50px rgba(255, 255, 255, 0.25),
+                0 0 80px rgba(255, 255, 255, 0.15),
+                0 0 120px rgba(255, 255, 255, 0.08),
+                inset 0 0 30px rgba(255, 255, 255, 0.05);
+    /* Remove backdrop blur from center */
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
 }
 
 .custom-cursor::before {
     content: '';
     position: absolute;
     top: 50%;
-    left: -15px;
-    width: 20px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.3);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 70%;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
-    filter: blur(8px);
-    transform: translateY(-50%);
     animation: cursorPulse 2s ease-in-out infinite;
 }
 
@@ -118,14 +116,14 @@ body {
     content: '';
     position: absolute;
     top: 50%;
-    right: -15px;
-    width: 20px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.3);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 40%;
+    /* Remove blur/glow from center - keep it minimal and clear */
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
     border-radius: 50%;
-    filter: blur(8px);
-    transform: translateY(-50%);
-    animation: cursorPulse 2s ease-in-out infinite 0.5s;
+    animation: cursorPulseInner 2s ease-in-out infinite;
 }
 
 .custom-cursor-dot {
@@ -135,26 +133,37 @@ body {
     background: rgba(255, 255, 255, 1);
     border-radius: 50%;
     pointer-events: none;
-    z-index: 99999;
+    z-index: 100000;
     transform: translate(-50%, -50%);
-    transition: background 0.2s ease, 
-                width 0.3s cubic-bezier(0.23, 1, 0.32, 1), 
-                height 0.3s cubic-bezier(0.23, 1, 0.32, 1),
-                box-shadow 0.2s ease;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-                0 0 20px rgba(255, 255, 255, 0.4),
-                0 0 0 1px rgba(0, 0, 0, 0.5),
-                0 0 0 2px rgba(255, 255, 255, 1);
+    transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1),
+                width 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+                height 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+                opacity 0.2s ease;
+    box-shadow: 
+                0 0 8px rgba(255, 255, 255, 0.9),
+                0 0 16px rgba(255, 255, 255, 0.6),
+                0 0 24px rgba(255, 255, 255, 0.3);
 }
 
 @keyframes cursorPulse {
     0%, 100% {
-        opacity: 0.6;
-        transform: translateY(-50%) scale(1);
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
     }
     50% {
-        opacity: 0.3;
-        transform: translateY(-50%) scale(1.1);
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(0.95);
+    }
+}
+
+@keyframes cursorPulseInner {
+    0%, 100% {
+        opacity: 0.4;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translate(-50%, -50%) scale(1.1);
     }
 }
 
@@ -167,67 +176,29 @@ body {
     }
 }
 
-/* Cursor Click Ripple Effect */
+/* Cursor Click Ripple Effect - Redesigned */
 .cursor-ripple {
     position: fixed;
-    width: 10px;
-    height: 6px;
-    border: 1.5px solid rgba(255, 255, 255, 0.9);
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.9);
     border-radius: 50%;
     pointer-events: none;
     z-index: 99998;
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.5);
-    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
-                opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                width 0.5s cubic-bezier(0.23, 1, 0.32, 1),
-                height 0.5s cubic-bezier(0.23, 1, 0.32, 1),
-                border-color 0.5s ease;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4),
-                0 0 30px rgba(255, 255, 255, 0.2);
-    animation: rippleFadeOut 0.5s ease-out 0.3s forwards;
+    transform: translate(-50%, -50%) scale(0);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+    box-shadow: 
+        0 0 30px rgba(255, 255, 255, 0.6),
+        0 0 60px rgba(255, 255, 255, 0.4),
+        0 0 90px rgba(255, 255, 255, 0.2);
 }
 
 .cursor-ripple.active {
-    width: 60px;
-    height: 60px;
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-    border-width: 1px;
-    border-color: rgba(255, 255, 255, 0.6);
-    animation: rippleExpand 0.3s cubic-bezier(0.23, 1, 0.32, 1) forwards,
-               rippleFadeOut 0.4s ease-out 0.3s forwards;
+    animation: clickRippleExpand 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-@keyframes rippleExpand {
-    0% {
-        width: 8px;
-        height: 6px;
-        opacity: 0.8;
-        transform: translate(-50%, -50%) scale(0.5);
-    }
-    100% {
-        width: 60px;
-        height: 60px;
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-}
-
-@keyframes rippleFadeOut {
-    0% {
-        opacity: 1;
-        border-color: rgba(255, 255, 255, 0.4);
-    }
-    100% {
-        opacity: 0;
-        border-color: rgba(255, 255, 255, 0);
-        transform: translate(-50%, -50%) scale(1.1);
-    }
-}
-
-/* Additional inner ripple */
+/* Outer ring */
 .cursor-ripple::before {
     content: '';
     position: absolute;
@@ -236,22 +207,77 @@ body {
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.7);
     border-radius: 50%;
-    animation: rippleInner 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation: rippleRing1 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-@keyframes rippleInner {
+/* Middle ring */
+.cursor-ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    animation: rippleRing2 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes clickRippleExpand {
     0% {
+        width: 30px;
+        height: 30px;
+        opacity: 1;
         transform: translate(-50%, -50%) scale(0);
-        opacity: 0.8;
+        border-width: 2px;
     }
     50% {
-        opacity: 1;
+        opacity: 0.9;
+        border-width: 1.5px;
     }
     100% {
-        transform: translate(-50%, -50%) scale(1.5);
+        width: 180px;
+        height: 180px;
         opacity: 0;
+        transform: translate(-50%, -50%) scale(1);
+        border-width: 1px;
+    }
+}
+
+@keyframes rippleRing1 {
+    0% {
+        width: 30px;
+        height: 30px;
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1);
+        border-width: 2px;
+    }
+    100% {
+        width: 225px;
+        height: 225px;
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1);
+        border-width: 1px;
+    }
+}
+
+@keyframes rippleRing2 {
+    0% {
+        width: 30px;
+        height: 30px;
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(1);
+        border-width: 1.5px;
+    }
+    100% {
+        width: 270px;
+        height: 270px;
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1);
+        border-width: 0.5px;
     }
 }
 
@@ -1504,9 +1530,156 @@ h1.active, h2.active, h3.active, h4.active, h5.active, h6.active,
     transform: translateY(0);
 }
 
+/* Exit animations - vice versa of entrance */
+h1:not(.active), h2:not(.active), h3:not(.active), h4:not(.active), h5:not(.active), h6:not(.active),
+.section-title:not(.active),
+.cta-title:not(.active),
+.credits-title:not(.active),
+.quiz-main-title:not(.active) {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+p:not(.active), span:not(.active), li:not(.active), td:not(.active), th:not(.active) {
+    opacity: 0;
+    transform: translateY(-15px);
+}
+
+section:not(.active) {
+    opacity: 0;
+    transform: translateY(-50px);
+}
+
+.grid-item:not(.active),
+.features-grid .feature-card:not(.active),
+.credits-grid .credits-card:not(.active),
+.flip-cards-container .flip-card-wrapper:not(.active) {
+    opacity: 0;
+    transform: scale(0.9) translateY(-30px);
+}
+
+button:not(.active),
+.btn:not(.active),
+.cta-button:not(.active),
+.quiz-button:not(.active),
+.submit-quiz-button:not(.active),
+.source-link:not(.active),
+.back-top-button:not(.active) {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+ul li:not(.active),
+ol li:not(.active),
+.examples-list li:not(.active),
+.cta-summary li:not(.active),
+.notes-list li:not(.active) {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+input:not(.active),
+textarea:not(.active),
+.name-input:not(.active),
+select:not(.active) {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+tr:not(.active),
+.truth-table tr:not(.active) {
+    opacity: 0;
+    transform: translateX(15px);
+}
+
+img:not(.active),
+svg:not(.active),
+.logic-gate svg:not(.active),
+.card-icon svg:not(.active) {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
 p.active, span.active, li.active, td.active, th.active {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Different animations for each section title */
+.section-1 .section-title,
+.section-1 .section-title.active {
+    transform-origin: left center;
+    transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+                transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.section-1 .section-title:not(.active) {
+    opacity: 0;
+    transform: translateX(-50px) scale(0.8);
+}
+
+.section-2 .section-title,
+.section-2 .section-title.active {
+    transform-origin: center;
+    transition: opacity 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+                transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.section-2 .section-title:not(.active) {
+    opacity: 0;
+    transform: translateY(-40px) rotateX(90deg);
+}
+
+.section-3 .section-title-main,
+.section-3 .section-title-main.active,
+.classification-section .section-title-main,
+.classification-section .section-title-main.active {
+    transform-origin: right center;
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.section-3 .section-title-main:not(.active),
+.classification-section .section-title-main:not(.active) {
+    opacity: 0;
+    transform: translateX(50px) scale(0.8);
+}
+
+/* Additional unique animation variations */
+.quiz-section .quiz-main-title,
+.quiz-section .quiz-main-title.active {
+    transform-origin: center center;
+    transition: opacity 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.quiz-section .quiz-main-title:not(.active) {
+    opacity: 0;
+    transform: scale(1.5) rotateZ(5deg);
+}
+
+.cta-section .cta-title,
+.cta-section .cta-title.active {
+    transform-origin: bottom center;
+    transition: opacity 0.6s cubic-bezier(0.17, 0.67, 0.12, 0.99),
+                transform 0.6s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+}
+
+.cta-section .cta-title:not(.active) {
+    opacity: 0;
+    transform: translateY(60px) scale(0.9);
+}
+
+.credits-section .credits-title,
+.credits-section .credits-title.active {
+    transform-origin: top center;
+    transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+                transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.credits-section .credits-title:not(.active) {
+    opacity: 0;
+    transform: translateY(-60px) scale(0.9);
 }
 
 /* Button Interactive Animations */
@@ -2059,28 +2232,49 @@ svg.active,
 .admin-stat-value {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(2.5rem, 5vw, 4rem);
-    color: #ffffff;
+    color: #ffffff !important;
+    margin-top: 1rem;
     margin-bottom: 0.5rem;
     font-weight: bold;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.3rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+/* Ensure all children of admin-stat-value are white - Maximum specificity */
+.admin-stat-card .admin-stat-value,
+.admin-stat-card .admin-stat-value *,
+.admin-stat-card .admin-stat-value span,
+.admin-stat-value,
+.admin-stat-value *,
+.admin-stat-value span {
+    color: #ffffff !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+.admin-stat-card .admin-stat-percentage,
 .admin-stat-percentage {
     font-size: clamp(2.5rem, 5vw, 4rem);
-    color: #ffffff;
+    color: #ffffff !important;
     line-height: 1;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
+.admin-stat-card .admin-stat-fraction,
 .admin-stat-fraction {
     font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 1) !important;
     font-weight: normal;
     font-family: 'Space Grotesk', sans-serif;
     letter-spacing: 0.05em;
     margin-top: 0.2rem;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .admin-stat-label {
@@ -2222,16 +2416,24 @@ svg.active,
     align-items: center;
 }
 
+/* Ensure card labels and values are visible - Maximum specificity */
+.admin-student-card .admin-card-label,
 .admin-card-label {
     font-size: clamp(0.85rem, 1.1vw, 0.95rem); /* Reduced font size */
-    color: #666;
+    color: #666 !important;
     font-weight: 500;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
+.admin-student-card .admin-card-value,
+.admin-student-card .admin-card-stat .admin-card-value,
 .admin-card-value {
     font-size: clamp(0.95rem, 1.3vw, 1.1rem); /* Reduced font size */
-    color: #000000;
+    color: #000000 !important;
     font-weight: bold;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .admin-card-footer {
@@ -5308,12 +5510,12 @@ svg.active,
 
 .name-input-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3rem;
-    max-width: 1200px;
+    gap: 2.5rem;
+    max-width: 800px;
     margin: 0 auto;
-    flex-wrap: wrap;
 }
 
 .name-input-card {
@@ -5333,13 +5535,16 @@ svg.active,
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: 1.2rem;
     padding: 2rem;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
-    border: 2px solid rgba(255, 255, 255, 0.15);
-    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .qr-code-wrapper:hover {
@@ -5349,13 +5554,13 @@ svg.active,
 }
 
 .qr-code-image {
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
     object-fit: contain;
     background: #ffffff;
-    padding: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    padding: 1.2rem;
+    border-radius: 16px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.35);
     transition: all 0.3s ease;
 }
 
@@ -5365,11 +5570,11 @@ svg.active,
 }
 
 .qr-code-label {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
-    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
     margin: 0;
     font-family: 'Space Grotesk', sans-serif;
 }
@@ -5806,27 +6011,26 @@ svg.active,
     }
 
     .name-input-container {
-        flex-direction: column;
         gap: 2rem;
     }
 
     .qr-code-wrapper {
         padding: 1.5rem;
-        order: 3; /* Place QR codes below on mobile */
+        max-width: 250px;
     }
 
     .qr-code-image {
-        width: 150px;
-        height: 150px;
+        width: 160px;
+        height: 160px;
+        padding: 1rem;
     }
 
     .qr-code-label {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
     }
 
     .name-input-card {
         padding: 3rem 2rem;
-        order: 1; /* Name input card first on mobile */
         min-width: 100%;
     }
 

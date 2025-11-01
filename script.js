@@ -212,28 +212,31 @@ document.addEventListener('DOMContentLoaded', () => {
             // Position at cursor
             ripple.style.left = dotX + 'px';
             ripple.style.top = dotY + 'px';
-            ripple.style.transform = 'translate(-50%, -50%)';
             
             document.body.appendChild(ripple);
             
-            // Trigger animation
-            setTimeout(() => {
+            // Trigger animation immediately
+            requestAnimationFrame(() => {
                 ripple.classList.add('active');
-            }, 10);
+            });
             
-            // Remove after animation
+            // Remove after animation completes (0.6s + buffer)
             setTimeout(() => {
                 ripple.remove();
-            }, 500);
+            }, 650);
             
-            // Also add pulse effect to cursor itself
-            cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
-            cursorDot.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            // Enhanced pulse effect to cursor itself - scale down then bounce back
+            cursor.style.transform = 'translate(-50%, -50%) scale(0.7)';
+            cursor.style.opacity = '0.8';
+            cursorDot.style.transform = 'translate(-50%, -50%) scale(1.8)';
+            cursorDot.style.opacity = '0.9';
             
             setTimeout(() => {
                 cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursor.style.opacity = '1';
                 cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
-            }, 200);
+                cursorDot.style.opacity = '1';
+            }, 250);
         });
         
         // Expand cursor on hover over interactive elements
@@ -245,25 +248,27 @@ document.addEventListener('DOMContentLoaded', () => {
         
         interactiveElements.forEach(element => {
             element.addEventListener('mouseenter', () => {
-                cursor.style.width = 'calc(var(--cursor-width) * 1.5)';
-                cursor.style.height = 'calc(var(--cursor-height) * 1.5)';
+                cursor.style.width = 'calc(var(--cursor-size) * 1.4)';
+                cursor.style.height = 'calc(var(--cursor-size) * 1.4)';
                 cursor.style.borderColor = 'rgba(255, 255, 255, 1)';
-                cursor.style.background = 'radial-gradient(ellipse at center, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 70%)';
-                cursor.style.boxShadow = '-25px 0 40px rgba(255, 255, 255, 0.2), 25px 0 40px rgba(255, 255, 255, 0.2), 0 0 60px rgba(255, 255, 255, 0.15)';
-                cursorDot.style.width = 'calc(var(--cursor-dot-size) * 1.8)';
-                cursorDot.style.height = 'calc(var(--cursor-dot-size) * 1.8)';
-                cursorDot.style.boxShadow = '0 0 15px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.6)';
+                cursor.style.borderWidth = '2.5px';
+                cursor.style.background = 'radial-gradient(circle at center, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.12) 50%, transparent 100%)';
+                cursor.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.4), 0 0 60px rgba(255, 255, 255, 0.2), 0 0 80px rgba(255, 255, 255, 0.1)';
+                cursorDot.style.width = 'calc(var(--cursor-dot-size) * 1.5)';
+                cursorDot.style.height = 'calc(var(--cursor-dot-size) * 1.5)';
+                cursorDot.style.boxShadow = '0 0 12px rgba(255, 255, 255, 1), 0 0 24px rgba(255, 255, 255, 0.7), 0 0 36px rgba(255, 255, 255, 0.4)';
             });
             
             element.addEventListener('mouseleave', () => {
-                cursor.style.width = 'var(--cursor-width)';
-                cursor.style.height = 'var(--cursor-height)';
-                cursor.style.borderColor = 'rgba(255, 255, 255, 0.9)';
-                cursor.style.background = 'radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 40%, transparent 70%)';
-                cursor.style.boxShadow = '-20px 0 30px rgba(255, 255, 255, 0.15), 20px 0 30px rgba(255, 255, 255, 0.15), 0 0 40px rgba(255, 255, 255, 0.1)';
+                cursor.style.width = 'var(--cursor-size)';
+                cursor.style.height = 'var(--cursor-size)';
+                cursor.style.borderColor = 'rgba(255, 255, 255, 0.95)';
+                cursor.style.borderWidth = '2px';
+                cursor.style.background = 'transparent';
+                cursor.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.4), 0 0 50px rgba(255, 255, 255, 0.25), 0 0 80px rgba(255, 255, 255, 0.15), 0 0 120px rgba(255, 255, 255, 0.08), inset 0 0 30px rgba(255, 255, 255, 0.05)';
                 cursorDot.style.width = 'var(--cursor-dot-size)';
                 cursorDot.style.height = 'var(--cursor-dot-size)';
-                cursorDot.style.boxShadow = '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4)';
+                cursorDot.style.boxShadow = '0 0 8px rgba(255, 255, 255, 0.9), 0 0 16px rgba(255, 255, 255, 0.6), 0 0 24px rgba(255, 255, 255, 0.3)';
             });
         });
         
@@ -453,10 +458,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const flipCardObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
+                // Reset first to retrigger animation
+                entry.target.style.opacity = '0';
+                entry.target.style.transform = 'translateY(50px)';
                 setTimeout(() => {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
                 }, index * 100);
+            } else {
+                // Reset when out of view
+                entry.target.style.opacity = '0';
+                entry.target.style.transform = 'translateY(50px)';
             }
         });
     }, { threshold: 0.2 });
@@ -810,15 +822,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const observerCallback = (entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Add active class when element enters viewport
-                entry.target.classList.add('active');
+                // Remove active class first to reset animation
+                entry.target.classList.remove('active');
+                // Use requestAnimationFrame to ensure the removal happens before adding
+                requestAnimationFrame(() => {
+                    entry.target.classList.add('active');
+                });
             } else {
                 // Remove active class when element leaves viewport (for reset)
-                // Reset when scrolled completely out of view
-                if (entry.boundingClientRect.top > window.innerHeight * 1.5 || 
-                    entry.boundingClientRect.bottom < -window.innerHeight * 0.5) {
-                    entry.target.classList.remove('active');
-                }
+                entry.target.classList.remove('active');
             }
         });
     };
@@ -1188,6 +1200,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'hidden';
         const dashboard = document.getElementById('adminDashboard');
         dashboard.style.display = 'block';
+        // Hide fullscreen button when dashboard is open
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        if (fullscreenBtn) {
+            fullscreenBtn.style.display = 'none';
+        }
         loadStudentData();
     }
     
@@ -1399,6 +1416,11 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.removeItem('adminEmail');
         document.getElementById('adminDashboard').style.display = 'none';
         document.body.style.overflow = '';
+        // Show fullscreen button again after logout
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        if (fullscreenBtn) {
+            fullscreenBtn.style.display = 'flex';
+        }
     };
     
     // Check if admin is already logged in (with Firebase Auth check)
@@ -1760,9 +1782,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const exampleCardObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.classList.add('active');
-                }, index * 150);
+                // Reset first to retrigger animation
+                entry.target.classList.remove('active');
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        entry.target.classList.add('active');
+                    }, index * 150);
+                });
+            } else {
+                entry.target.classList.remove('active');
             }
         });
     }, { threshold: 0.2 });
@@ -1776,10 +1804,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const exampleItemObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
+                // Reset first to retrigger animation
+                entry.target.style.opacity = '0';
+                entry.target.style.transform = 'translateX(-20px)';
                 setTimeout(() => {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateX(0)';
                 }, index * 100);
+            } else {
+                // Reset when out of view
+                entry.target.style.opacity = '0';
+                entry.target.style.transform = 'translateX(-20px)';
             }
         });
     }, { threshold: 0.2 });
@@ -1796,10 +1831,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const conceptCardObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
+                // Reset first to retrigger animation
+                entry.target.style.opacity = '0';
+                entry.target.style.transform = 'translateY(30px) scale(0.95)';
                 setTimeout(() => {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0) scale(1)';
                 }, index * 150);
+            } else {
+                // Reset when out of view
+                entry.target.style.opacity = '0';
+                entry.target.style.transform = 'translateY(30px) scale(0.95)';
             }
         });
     }, { threshold: 0.2 });
@@ -1816,9 +1858,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const compoundCardObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.classList.add('active');
-                }, index * 200);
+                // Reset first to retrigger animation
+                entry.target.classList.remove('active');
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        entry.target.classList.add('active');
+                    }, index * 200);
+                });
+            } else {
+                entry.target.classList.remove('active');
             }
         });
     }, { threshold: 0.2 });
@@ -1832,9 +1880,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const classificationCardObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.classList.add('active');
-                }, index * 200);
+                // Reset first to retrigger animation
+                entry.target.classList.remove('active');
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        entry.target.classList.add('active');
+                    }, index * 200);
+                });
+            } else {
+                entry.target.classList.remove('active');
             }
         });
     }, { threshold: 0.2 });
@@ -1847,9 +1901,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const creditsCardObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.classList.add('active');
-                }, index * 200);
+                // Reset first to retrigger animation
+                entry.target.classList.remove('active');
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        entry.target.classList.add('active');
+                    }, index * 200);
+                });
+            } else {
+                entry.target.classList.remove('active');
             }
         });
     }, { threshold: 0.2 });
@@ -2436,6 +2496,10 @@ document.addEventListener('DOMContentLoaded', () => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const items = entry.target.querySelectorAll('.grid-item');
+                    // Reset first to retrigger animation
+                    items.forEach(item => {
+                        item.classList.remove('active');
+                    });
                     items.forEach((item, index) => {
                         setTimeout(() => {
                             item.classList.add('active');
@@ -2460,14 +2524,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const cardsObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Activate section heading
+                    // Reset first to retrigger animation
                     const heading = entry.target.querySelector('.section-heading');
                     if (heading) {
-                        heading.classList.add('active');
+                        heading.classList.remove('active');
+                    }
+                    const cards = entry.target.querySelectorAll('.card');
+                    cards.forEach(card => {
+                        card.classList.remove('active');
+                    });
+                    
+                    // Activate section heading
+                    if (heading) {
+                        requestAnimationFrame(() => {
+                            heading.classList.add('active');
+                        });
                     }
                     
                     // Activate cards with staggered delay
-                    const cards = entry.target.querySelectorAll('.card');
                     cards.forEach((card, index) => {
                         setTimeout(() => {
                             card.classList.add('active');
@@ -2718,6 +2792,11 @@ document.addEventListener('DOMContentLoaded', () => {
             entries.forEach(entry => {
                 const floatingMorphs = entry.target.querySelectorAll('.float-morph');
                 if (entry.isIntersecting) {
+                    // Reset first to retrigger animation
+                    floatingMorphs.forEach(morph => {
+                        morph.style.opacity = '0';
+                        morph.style.transform = 'scale(0.5)';
+                    });
                     floatingMorphs.forEach((morph, index) => {
                         setTimeout(() => {
                             morph.style.opacity = '1';
@@ -2774,4 +2853,5 @@ const handleResize = debounce(() => {
 }, 250);
 
 window.addEventListener('resize', handleResize);
+
 
