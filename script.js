@@ -1,4 +1,63 @@
 // Smooth Parallax Scroll Effects with Animation Reset + Morphing Features + Grainy Design
+// Fullscreen Toggle Function
+function toggleFullscreen() {
+    const elem = document.documentElement;
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const fullscreenIcon = document.getElementById('fullscreenIcon');
+    const fullscreenExitIcon = document.getElementById('fullscreenExitIcon');
+    
+    if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+        // Enter fullscreen
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) {
+            elem.webkitRequestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+        }
+        
+        fullscreenIcon.style.display = 'none';
+        fullscreenExitIcon.style.display = 'block';
+    } else {
+        // Exit fullscreen
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+        
+        fullscreenIcon.style.display = 'block';
+        fullscreenExitIcon.style.display = 'none';
+    }
+}
+
+// Listen for fullscreen changes to update icon
+document.addEventListener('fullscreenchange', updateFullscreenIcon);
+document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
+document.addEventListener('mozfullscreenchange', updateFullscreenIcon);
+document.addEventListener('MSFullscreenChange', updateFullscreenIcon);
+
+function updateFullscreenIcon() {
+    const fullscreenIcon = document.getElementById('fullscreenIcon');
+    const fullscreenExitIcon = document.getElementById('fullscreenExitIcon');
+    
+    const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+    
+    if (isFullscreen) {
+        fullscreenIcon.style.display = 'none';
+        fullscreenExitIcon.style.display = 'block';
+    } else {
+        fullscreenIcon.style.display = 'block';
+        fullscreenExitIcon.style.display = 'none';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     
     // ========================================
