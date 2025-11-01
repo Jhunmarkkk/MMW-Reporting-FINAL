@@ -1131,11 +1131,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const averageScoreEl = document.getElementById('averageScore');
         const highestScoreEl = document.getElementById('highestScore');
         
-        // Clear existing cards
-        if (cardsGrid) {
-            cardsGrid.innerHTML = '<div class="admin-loading">Loading student data...</div>';
-        }
-        
         let students = [];
         
         // Try to load from Firebase first

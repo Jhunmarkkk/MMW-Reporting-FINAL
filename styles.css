@@ -1841,21 +1841,22 @@ svg.active,
     height: 100%;
     background: #0a0a0a;
     z-index: 10001;
-    overflow-y: auto;
+    overflow: hidden; /* Prevent whole dashboard from scrolling */
     animation: fadeIn 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .admin-dashboard-header {
     background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
     border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-    padding: 2rem;
+    padding: 1.5rem 2rem; /* Reduced vertical padding */
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 1.5rem;
-    position: sticky;
-    top: 0;
+    flex-shrink: 0; /* Prevent header from shrinking */
     z-index: 10;
 }
 
@@ -1903,17 +1904,23 @@ svg.active,
 }
 
 .admin-dashboard-content {
-    padding: 3rem 2rem;
+    padding: 2rem;
     max-width: 1400px;
     margin: 0 auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevent content area from scrolling */
+    min-height: 0; /* Allow flex child to shrink */
 }
 
 /* Admin Stats Cards */
 .admin-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
+    gap: 1.5rem; /* Reduced gap */
+    margin-bottom: 2rem; /* Reduced margin */
+    flex-shrink: 0; /* Prevent stats from shrinking */
 }
 
 .admin-stat-card {
@@ -1970,15 +1977,44 @@ svg.active,
     background: #ffffff;
     border: 2px solid rgba(0, 0, 0, 0.1);
     border-radius: 12px;
-    padding: 2rem;
+    padding: 1.5rem;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    max-height: calc(100vh - 480px); /* Reduced height */
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    min-height: 0; /* Allow container to shrink in flex layout */
+    /* Custom scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
+}
+
+/* Webkit scrollbar styling (Chrome, Safari, Edge) */
+.admin-table-container::-webkit-scrollbar {
+    width: 12px;
+}
+
+.admin-table-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+}
+
+.admin-table-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    border: 2px solid rgba(0, 0, 0, 0.05);
+}
+
+.admin-table-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .admin-cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem; /* Reduced gap */
     width: 100%;
+    align-items: stretch; /* Stretch all cards to equal height in each row */
 }
 
 .admin-loading {
@@ -2003,12 +2039,14 @@ svg.active,
 .admin-student-card {
     background: #ffffff;
     border: 2px solid rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    padding: 1.5rem;
+    border-radius: 10px; /* Slightly smaller radius */
+    padding: 1rem; /* Reduced padding */
     transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    min-height: 160px; /* Reduced minimum height */
+    box-sizing: border-box; /* Include padding in height calculation */
 }
 
 .admin-student-card:hover {
@@ -2021,15 +2059,16 @@ svg.active,
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
+    margin-bottom: 0.75rem; /* Reduced margin */
+    padding-bottom: 0.75rem; /* Reduced padding */
     border-bottom: 2px solid rgba(0, 0, 0, 0.1);
     position: relative;
+    flex-shrink: 0; /* Prevent header from shrinking */
 }
 
 .admin-card-number {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.3rem; /* Reduced font size */
     color: #000000;
     font-weight: bold;
 }
@@ -2038,13 +2077,14 @@ svg.active,
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-height: 0; /* Allow flex item to shrink */
 }
 
 .admin-card-name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(1.3rem, 2vw, 1.6rem);
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem); /* Reduced font size */
     color: #000000;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem; /* Reduced margin */
     font-weight: bold;
     word-break: break-word;
 }
@@ -2052,8 +2092,10 @@ svg.active,
 .admin-card-stats {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
-    margin-bottom: 1rem;
+    gap: 0.6rem; /* Reduced gap */
+    margin-bottom: 0.75rem; /* Reduced margin */
+    flex: 1; /* Take available space */
+    min-height: 0; /* Allow shrinking if needed */
 }
 
 .admin-card-stat {
@@ -2063,13 +2105,13 @@ svg.active,
 }
 
 .admin-card-label {
-    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    font-size: clamp(0.85rem, 1.1vw, 0.95rem); /* Reduced font size */
     color: #666;
     font-weight: 500;
 }
 
 .admin-card-value {
-    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem); /* Reduced font size */
     color: #000000;
     font-weight: bold;
 }
@@ -2079,21 +2121,22 @@ svg.active,
     justify-content: space-between;
     align-items: center;
     margin-top: auto;
-    padding-top: 1rem;
+    padding-top: 0.75rem; /* Reduced padding */
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Prevent footer from shrinking */
 }
 
 .admin-card-grade {
-    padding: 0.4rem 0.8rem;
-    border-radius: 6px;
+    padding: 0.3rem 0.7rem; /* Reduced padding */
+    border-radius: 5px; /* Slightly smaller radius */
     font-weight: bold;
-    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    font-size: clamp(0.85rem, 1.2vw, 1rem); /* Reduced font size */
     border: 2px solid;
     background: rgba(255, 255, 255, 0.8);
 }
 
 .admin-card-date {
-    font-size: clamp(0.8rem, 1vw, 0.9rem);
+    font-size: clamp(0.75rem, 0.95vw, 0.85rem); /* Reduced font size */
     color: #666;
     text-align: right;
     white-space: nowrap;
@@ -2190,17 +2233,23 @@ svg.active,
         min-width: 120px;
     }
 
+    .admin-dashboard-content {
+        padding: 1.5rem 1rem;
+    }
+
     .admin-table-container {
         padding: 1rem;
+        max-height: calc(100vh - 400px); /* Adjust for mobile */
     }
 
     .admin-cards-grid {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 0.8rem; /* Reduced gap for mobile */
     }
 
     .admin-student-card {
-        padding: 1.2rem;
+        padding: 0.9rem; /* Reduced padding for mobile */
+        min-height: 150px; /* Reduced min-height for mobile */
     }
 }
 
