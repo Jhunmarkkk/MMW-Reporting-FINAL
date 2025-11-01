@@ -1145,11 +1145,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const q = query(collection(window.firebaseDB, 'quizResults'), orderBy('timestamp', 'desc'));
                 const querySnapshot = await getDocs(q);
                 
-                students = querySnapshot.docs.map(doc => {
-                    const data = doc.data();
+                students = querySnapshot.docs.map(docSnapshot => {
+                    const data = docSnapshot.data();
                     // Convert Firestore Timestamp to ISO string
                     const date = data.date?.toDate ? data.date.toDate().toISOString() : new Date(data.timestamp).toISOString();
                     return {
+                        id: docSnapshot.id, // Store Firebase document ID for deletion
                         name: data.name,
                         score: data.score,
                         total: data.total,
@@ -1243,6 +1244,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const card = document.createElement('div');
                 card.className = 'admin-student-card';
                 card.setAttribute('data-timestamp', student.timestamp);
+                if (student.id) {
+                    card.setAttribute('data-doc-id', student.id); // Store Firebase document ID
+                }
                 
                 // Get grade color
                 let gradeColor = '#666';
@@ -1252,10 +1256,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (student.grade === 'D') gradeColor = '#e67e22';
                 else gradeColor = '#e74c3c';
                 
+                // Create delete button with both timestamp and doc ID
+                const deleteFunction = student.id 
+                    ? `deleteStudentRecord(${student.timestamp}, '${student.id}')` 
+                    : `deleteStudentRecord(${student.timestamp})`;
+                
                 card.innerHTML = `
                     <div class="admin-card-header">
                         <div class="admin-card-number">#${index + 1}</div>
-                        <button class="admin-delete-btn" onclick="deleteStudentRecord(${student.timestamp})" title="Delete Record">
+                        <button class="admin-delete-btn" onclick="${deleteFunction}" title="Delete Record">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#e74c3c" width="20" height="20">
                                 <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
                             </svg>
@@ -1285,12 +1294,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // Delete student record
-    window.deleteStudentRecord = function(timestamp) {
+    // Delete student record from Firebase (with localStorage fallback)
+    window.deleteStudentRecord = async function(timestamp, docId = null) {
         if (!confirm('Are you sure you want to delete this student record?')) {
             return;
         }
         
+        // Try to delete from Firebase first if document ID is provided
+        if (window.firebaseDB && window.firebaseFirestore && docId) {
+            try {
+                const { doc, deleteDoc } = window.firebaseFirestore;
+                await deleteDoc(doc(window.firebaseDB, 'quizResults', docId));
+                console.log('Student record deleted from Firebase');
+            } catch (error) {
+                console.error('Error deleting from Firebase:', error);
+                // Continue to delete from localStorage as fallback
+            }
+        }
+        
+        // Delete from localStorage as fallback or if Firebase deletion failed
         let students = JSON.parse(localStorage.getItem('quizStudents') || '[]');
         students = students.filter(student => student.timestamp !== timestamp);
         localStorage.setItem('quizStudents', JSON.stringify(students));
