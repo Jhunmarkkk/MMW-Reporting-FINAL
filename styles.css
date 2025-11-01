@@ -10,6 +10,9 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
 }
 
 body {
@@ -19,6 +22,8 @@ body {
     overflow-x: hidden;
     line-height: 1.6;
     position: relative;
+    width: 100%;
+    max-width: 100vw;
 }
 
 /* Hide default cursor on desktop only (custom cursor enabled) */
@@ -3599,6 +3604,14 @@ svg.active,
 /* Table Container */
 .table-container {
     margin-top: 2rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 769px) {
+    .table-container {
+        overflow-x: visible;
+    }
 }
 
 .table-scroll {
@@ -4347,15 +4360,37 @@ svg.active,
 
     /* Section 3 Mobile Styles */
     .compound-propositions-section {
-        padding: 5rem 3%;
+        padding: 4rem 4% !important;
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+        box-sizing: border-box;
+    }
+
+    .section-3-container {
+        padding: 0;
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .section-3-header {
+        margin-bottom: 3rem;
+        padding: 0 2%;
     }
 
     .intro-card {
         padding: 2rem 1.5rem;
+        margin: 2rem auto;
+        max-width: 100%;
     }
 
     .compound-example-card {
         padding: 2rem 1.5rem;
+        margin-bottom: 2.5rem;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
     }
 
     .example-header {
@@ -4370,19 +4405,72 @@ svg.active,
 
     .example-title {
         font-size: 1.6rem !important;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .example-description {
+        font-size: 1rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
     .more-examples-title {
         font-size: 1.8rem !important;
+        padding: 0 2%;
+        text-align: center;
+    }
+
+    .more-examples-section {
+        padding: 0 2%;
+    }
+
+    /* Table containers - make scrollable on mobile */
+    .table-container,
+    .table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 1.5rem -1.5rem;
+        padding: 0 1.5rem;
+        width: calc(100% + 3rem);
+        max-width: calc(100% + 3rem);
+    }
+
+    .table-scroll {
+        margin: 1.5rem -1.5rem;
+    }
+
+    .table-container table,
+    .table-scroll table {
+        min-width: 500px;
+        width: 100%;
     }
 
     .truth-table.compound-table {
-        font-size: 0.85rem;
+        font-size: 0.75rem !important;
+        min-width: 500px;
     }
 
     .truth-table.compound-table th,
     .truth-table.compound-table td {
-        padding: 0.6rem 0.4rem;
+        padding: 0.5rem 0.3rem !important;
+        white-space: nowrap;
+    }
+
+    .equivalence-notes {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+    }
+
+    .equivalence-notes ul {
+        padding-left: 1.5rem;
+    }
+
+    .equivalence-notes li {
+        margin-bottom: 0.8rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        word-wrap: break-word;
     }
 }
 
@@ -4811,13 +4899,104 @@ svg.active,
 
 /* Responsive Styles for Classification Section */
 @media (max-width: 768px) {
+    .classification-section {
+        padding: 4rem 4% !important;
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+        box-sizing: border-box;
+    }
+
+    .classification-container {
+        padding: 0;
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .classification-header {
+        margin-bottom: 3rem;
+        padding: 0 2%;
+    }
+
     .classification-cards-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
+        padding: 0 2%;
     }
 
     .classification-card {
         padding: 2rem 1.5rem;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    .classification-card h3 {
+        font-size: 1.8rem !important;
+        word-wrap: break-word;
+    }
+
+    .class-description {
+        font-size: 1rem !important;
+        line-height: 1.7;
+        word-wrap: break-word;
+    }
+
+    .formula-box {
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+    }
+
+    .formula-text {
+        font-size: 1.1rem !important;
+        word-wrap: break-word;
+    }
+
+    /* Make classification tables scrollable */
+    .classification-table {
+        font-size: 0.75rem !important;
+        min-width: 300px;
+        width: 100%;
+    }
+
+    .classification-table th,
+    .classification-table td {
+        padding: 0.6rem 0.4rem !important;
+        white-space: nowrap;
+    }
+
+    /* Wrap table in scrollable container */
+    .classification-card .classification-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 1rem -1.5rem;
+        padding: 0 1.5rem;
+        width: calc(100% + 3rem);
+        max-width: calc(100% + 3rem);
+    }
+
+    .class-note,
+    .real-world-example {
+        font-size: 0.9rem !important;
+        line-height: 1.6;
+        word-wrap: break-word;
+    }
+
+    .more-classification-examples {
+        padding: 0 2%;
+        margin-top: 3rem;
+    }
+
+    .examples-header {
+        padding: 0;
+        margin-bottom: 2rem;
+    }
+
+    .examples-main-title {
+        font-size: 1.8rem !important;
+        padding: 0 2%;
     }
 
     .examples-grid-category {
@@ -4827,10 +5006,51 @@ svg.active,
 
     .example-card-category {
         padding: 2rem 1.5rem;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    .example-card-title {
+        font-size: 1.3rem !important;
+        word-wrap: break-word;
+    }
+
+    .example-card-category .truth-table {
+        font-size: 0.7rem !important;
+        min-width: 400px;
+    }
+
+    .example-card-category .table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 1rem -1.5rem;
+        padding: 0 1.5rem;
+        width: calc(100% + 3rem);
+        max-width: calc(100% + 3rem);
+    }
+
+    .example-note {
+        font-size: 0.9rem !important;
+        line-height: 1.6;
+        word-wrap: break-word;
     }
 
     .classification-guide-box {
         padding: 2rem 1.5rem;
+        margin: 2rem 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .guide-title {
+        font-size: 1.5rem !important;
+    }
+
+    .guide-steps li {
+        margin-bottom: 1rem;
+        line-height: 1.7;
+        word-wrap: break-word;
     }
 }
 
