@@ -618,35 +618,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const deltaTime = Math.min((now - lastScrollTime) / 1000, 0.033); // Cap at ~30fps minimum
         lastScrollTime = now;
         
-        // Smooth interpolation towards target scroll
-        const scrollDiff = targetScrollY - currentScrollY;
-        const damping = 0.18; // Smoothness factor (lower = smoother but slower)
+        // Use actual scroll position directly for immediate response
+        const easedScrollY = targetScrollY;
         
-        // Use velocity for momentum effect with smooth damping
-        scrollVelocity = scrollVelocity * 0.85 + scrollDiff * damping;
-        currentScrollY += scrollVelocity;
-        
-        // Clamp to prevent overshooting
-        if (Math.abs(scrollDiff) < 0.5) {
-            currentScrollY = targetScrollY;
-            scrollVelocity = 0;
-        }
-        
-        const easedScrollY = currentScrollY;
-        
-        // Hero section parallax layers with smooth easing
+        // Hero section parallax layers
         const heroLayers = document.querySelectorAll('.hero-section .parallax-bg');
         heroLayers.forEach((layer, index) => {
             const speed = (index + 1) * 0.3;
             const parallaxY = easedScrollY * speed;
             
-            // Add smooth transition with CSS transform
-            layer.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            // Direct transform without CSS transition for immediate response
+            layer.style.transition = 'none';
             layer.style.transform = `translateY(${parallaxY}px)`;
             layer.style.willChange = 'transform';
         });
 
-        // Final section parallax layers with smooth transitions
+        // Final section parallax layers
         const finalLayers = document.querySelectorAll('.cta-section .parallax-bg');
         const ctaSection = document.querySelector('.cta-section');
         if (ctaSection) {
@@ -655,13 +642,13 @@ document.addEventListener('DOMContentLoaded', () => {
             finalLayers.forEach((layer, index) => {
                 const speed = (index + 1) * 0.2;
                 const parallaxY = ctaScroll * speed;
-                layer.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                layer.style.transition = 'none';
                 layer.style.transform = `translateY(${parallaxY}px)`;
                 layer.style.willChange = 'transform';
             });
         }
 
-        // Background patterns parallax with smooth interpolation
+        // Background patterns parallax
         const bgPatterns = document.querySelectorAll('.parallax-bg-image');
         bgPatterns.forEach((pattern) => {
             const section = pattern.closest('section');
@@ -669,13 +656,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const sectionTop = section.offsetTop;
                 const sectionScroll = easedScrollY - sectionTop + window.innerHeight / 2;
                 const parallaxY = sectionScroll * 0.15;
-                pattern.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+                pattern.style.transition = 'none';
                 pattern.style.transform = `translateY(${parallaxY}px)`;
                 pattern.style.willChange = 'transform';
             }
         });
 
-        // Floating shapes parallax with rotation smoothing
+        // Floating shapes parallax
         const shapes = document.querySelectorAll('.shape');
         shapes.forEach((shape, index) => {
             const section = shape.closest('section');
@@ -685,13 +672,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const speed = 0.1 + (index * 0.05);
                 const rotation = sectionScroll * 0.05;
                 const parallaxY = sectionScroll * speed;
-                shape.style.transition = 'transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                shape.style.transition = 'none';
                 shape.style.transform = `translateY(${parallaxY}px) rotate(${rotation}deg)`;
                 shape.style.willChange = 'transform';
             }
         });
 
-        // Parallax image layers with perspective smoothing
+        // Parallax image layers
         const parallaxLayers = document.querySelectorAll('.parallax-layer');
         parallaxLayers.forEach((layer) => {
             const section = layer.closest('.parallax-images-section');
@@ -704,15 +691,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (layer.classList.contains('deep')) {
                     const translateY = easedPercent * 150;
-                    layer.style.transition = 'transform 0.9s cubic-bezier(0.23, 1, 0.32, 1)';
+                    layer.style.transition = 'none';
                     layer.style.transform = `translateZ(-100px) scale(1.1) translateY(${translateY}px)`;
                 } else if (layer.classList.contains('medium')) {
                     const translateY = easedPercent * 100;
-                    layer.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+                    layer.style.transition = 'none';
                     layer.style.transform = `translateZ(-50px) scale(1.05) translateY(${translateY}px)`;
                 } else if (layer.classList.contains('close')) {
                     const translateY = easedPercent * 50;
-                    layer.style.transition = 'transform 0.7s cubic-bezier(0.23, 1, 0.32, 1)';
+                    layer.style.transition = 'none';
                     layer.style.transform = `translateZ(0px) translateY(${translateY}px)`;
                 }
                 layer.style.willChange = 'transform';
@@ -735,7 +722,7 @@ document.addEventListener('DOMContentLoaded', () => {
             binaryCodes.forEach((binary, index) => {
                 const speed = 0.25 + (index * 0.08);
                 const parallaxY = sectionScroll * speed;
-                binary.style.transition = 'transform 0.85s cubic-bezier(0.23, 1, 0.32, 1)';
+                binary.style.transition = 'none';
                 binary.style.transform = `translateY(${parallaxY}px)`;
                 binary.style.willChange = 'transform';
             });
@@ -746,7 +733,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const speed = 0.2 + (index * 0.06);
                 const parallaxY = sectionScroll * speed;
                 const rotation = sectionScroll * 0.015;
-                gate.style.transition = 'transform 0.9s cubic-bezier(0.23, 1, 0.32, 1)';
+                gate.style.transition = 'none';
                 gate.style.transform = `translateY(${parallaxY}px) rotate(${rotation}deg)`;
                 gate.style.willChange = 'transform';
             });
@@ -756,7 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mathSymbols.forEach((symbol, index) => {
                 const speed = 0.18 + (index * 0.05);
                 const parallaxY = sectionScroll * speed;
-                symbol.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+                symbol.style.transition = 'none';
                 symbol.style.transform = `translateY(${parallaxY}px)`;
                 symbol.style.willChange = 'transform';
             });
@@ -766,7 +753,7 @@ document.addEventListener('DOMContentLoaded', () => {
             circuitNodes.forEach((node, index) => {
                 const speed = 0.22 + (index * 0.07);
                 const parallaxY = sectionScroll * speed;
-                node.style.transition = 'transform 0.75s cubic-bezier(0.23, 1, 0.32, 1)';
+                node.style.transition = 'none';
                 node.style.transform = `translateY(${parallaxY}px)`;
                 node.style.willChange = 'transform';
             });
@@ -775,18 +762,14 @@ document.addEventListener('DOMContentLoaded', () => {
             circuitLines.forEach((line, index) => {
                 const speed = 0.15 + (index * 0.05);
                 const parallaxY = sectionScroll * speed;
-                line.style.transition = 'transform 0.7s cubic-bezier(0.23, 1, 0.32, 1)';
+                line.style.transition = 'none';
                 line.style.transform = `translateY(${parallaxY}px)`;
                 line.style.willChange = 'transform';
             });
         });
 
-        // Continue animation loop if still moving
-        if (Math.abs(scrollDiff) > 0.1) {
-            requestAnimationFrame(updateParallax);
-        } else {
-            ticking = false;
-        }
+        // End animation loop
+        ticking = false;
     }
 
     // Enhanced scroll handler with momentum tracking
@@ -2650,7 +2633,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function updateMorphingIntensity() {
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        targetScrollPercent = maxScroll > 0 ? currentScrollY / maxScroll : 0;
+        targetScrollPercent = maxScroll > 0 ? targetScrollY / maxScroll : 0;
         
         // Smooth interpolation
         const scrollDiff = targetScrollPercent - currentScrollPercent;
@@ -2664,7 +2647,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const scale = 1 + Math.sin(currentScrollPercent * Math.PI * 2 + index) * 0.2;
             
             // Apply smooth transition
-            morph.style.transition = 'transform 0.9s cubic-bezier(0.23, 1, 0.32, 1)';
+            morph.style.transition = 'none';
             morph.style.transform = `rotate(${rotation}deg) scale(${scale})`;
             morph.style.willChange = 'transform';
         });
