@@ -19,7 +19,25 @@ body {
     overflow-x: hidden;
     line-height: 1.6;
     position: relative;
-    cursor: none; /* Hide default cursor */
+}
+
+/* Hide default cursor on desktop only (custom cursor enabled) */
+@media (hover: hover) and (pointer: fine) {
+    body {
+        cursor: none; /* Hide default cursor on desktop */
+    }
+}
+
+/* Show default cursor on mobile/tablet */
+@media (hover: none) or (pointer: coarse) {
+    body {
+        cursor: default; /* Show default cursor on mobile */
+    }
+    
+    .custom-cursor,
+    .custom-cursor-dot {
+        display: none !important; /* Hide custom cursor on mobile */
+    }
 }
 
 /* Custom Cursor - Redesigned Modern Style */
@@ -211,11 +229,13 @@ body {
     }
 }
 
-/* Cursor hover states */
-a, button, .btn, .cta-button, .quiz-button, .admin-delete-btn, 
-input[type="button"], input[type="submit"], .flip-card, 
-.clickable, [onclick], .quiz-option {
-    cursor: none;
+/* Cursor hover states - Desktop only */
+@media (hover: hover) and (pointer: fine) {
+    a, button, .btn, .cta-button, .quiz-button, .admin-delete-btn, 
+    input[type="button"], input[type="submit"], .flip-card, 
+    .clickable, [onclick], .quiz-option {
+        cursor: none;
+    }
 }
 
 /* Expand cursor on hover over interactive elements - handled by JavaScript */
@@ -225,11 +245,22 @@ input, textarea, [contenteditable] {
     cursor: text;
 }
 
-/* Pointer cursor style for links and buttons */
-a, button, .btn, .cta-button, .quiz-button, .admin-delete-btn,
-input[type="button"], input[type="submit"], .flip-card,
-.quiz-option, [onclick] {
-    cursor: none;
+/* Pointer cursor style for links and buttons - Desktop only */
+@media (hover: hover) and (pointer: fine) {
+    a, button, .btn, .cta-button, .quiz-button, .admin-delete-btn,
+    input[type="button"], input[type="submit"], .flip-card,
+    .quiz-option, [onclick] {
+        cursor: none;
+    }
+}
+
+/* Show pointer cursor on mobile/tablet */
+@media (hover: none) or (pointer: coarse) {
+    a, button, .btn, .cta-button, .quiz-button, .admin-delete-btn,
+    input[type="button"], input[type="submit"], .flip-card,
+    .quiz-option, [onclick], .clickable {
+        cursor: pointer;
+    }
 }
 
 /* ========================================

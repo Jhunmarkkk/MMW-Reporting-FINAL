@@ -2,13 +2,40 @@
 document.addEventListener('DOMContentLoaded', () => {
     
     // ========================================
-    // CUSTOM CURSOR SYSTEM
+    // DEVICE DETECTION - Mobile/Tablet Check
+    // ========================================
+    
+    function detectMobileDevice() {
+        // Check for touch capability
+        const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        // Check user agent for mobile/tablet
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
+        
+        // Check screen width (tablets and phones are typically < 1024px)
+        const isSmallScreen = window.innerWidth < 1024;
+        
+        // Consider it mobile if it has touch AND (is mobile UA OR small screen)
+        return hasTouchScreen && (isMobileUA || isSmallScreen);
+    }
+    
+    const isMobileDevice = detectMobileDevice();
+    
+    // ========================================
+    // CUSTOM CURSOR SYSTEM (Desktop Only)
     // ========================================
     
     const cursor = document.querySelector('.custom-cursor');
     const cursorDot = document.querySelector('.custom-cursor-dot');
     
-    if (cursor && cursorDot) {
+    // Hide cursor elements on mobile devices
+    if (isMobileDevice && cursor && cursorDot) {
+        cursor.style.display = 'none';
+        cursorDot.style.display = 'none';
+    }
+    
+    if (cursor && cursorDot && !isMobileDevice) {
         let mouseX = 0;
         let mouseY = 0;
         let cursorX = 0;
@@ -174,11 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Start cursor animation
         animateCursor();
-        
-        // Hide default cursor on mobile/touch devices
-        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-            document.body.style.cursor = 'default';
-        }
     }
     
     // ========================================
