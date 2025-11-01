@@ -1382,6 +1382,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
     
+    // Helper function to extract last name from full name
+    function getLastName(fullName) {
+        if (!fullName || typeof fullName !== 'string') return '';
+        const nameParts = fullName.trim().split(/\s+/);
+        // Last name is the last word in the name
+        return nameParts.length > 0 ? nameParts[nameParts.length - 1] : fullName;
+    }
+    
     // Export to PDF
     window.exportToPDF = async function() {
         let students = [];
@@ -1418,6 +1426,18 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('No student data to export');
             return;
         }
+        
+        // Sort by last name alphabetically (case-insensitive)
+        students.sort((a, b) => {
+            const lastNameA = getLastName(a.name).toLowerCase();
+            const lastNameB = getLastName(b.name).toLowerCase();
+            if (lastNameA < lastNameB) return -1;
+            if (lastNameA > lastNameB) return 1;
+            // If last names are the same, sort by first name
+            const firstNameA = a.name.trim().split(/\s+/)[0]?.toLowerCase() || '';
+            const firstNameB = b.name.trim().split(/\s+/)[0]?.toLowerCase() || '';
+            return firstNameA.localeCompare(firstNameB);
+        });
         
         // Use jsPDF library if available, otherwise use print
         if (typeof window.jsPDF !== 'undefined') {
@@ -1640,8 +1660,17 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        // Sort by timestamp
-        students.sort((a, b) => b.timestamp - a.timestamp);
+        // Sort by last name alphabetically (case-insensitive)
+        students.sort((a, b) => {
+            const lastNameA = getLastName(a.name).toLowerCase();
+            const lastNameB = getLastName(b.name).toLowerCase();
+            if (lastNameA < lastNameB) return -1;
+            if (lastNameA > lastNameB) return 1;
+            // If last names are the same, sort by first name
+            const firstNameA = a.name.trim().split(/\s+/)[0]?.toLowerCase() || '';
+            const firstNameB = b.name.trim().split(/\s+/)[0]?.toLowerCase() || '';
+            return firstNameA.localeCompare(firstNameB);
+        });
         
         // CSV Headers
         let csv = 'Number,Full Name,Score,Total Questions,Percentage,Grade,Date\n';
