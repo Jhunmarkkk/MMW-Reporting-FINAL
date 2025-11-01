@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic and Computer Addition - Interactive Parallax</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
+    
+    <!-- Grainy Texture Overlay System -->
+    <div class="grain-overlay"></div>
+    <div class="grain-texture"></div>
+    <canvas class="grain-canvas" id="grainCanvas"></canvas>
+    
+    <!-- Morphing Floating Background Elements -->
+    <div class="morphing-container">
+        <svg class="morph-svg" viewBox="0 0 1000 1000">
+            <defs>
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="10" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+            <path class="morph-blob morph-blob-1" d="" fill="rgba(255,255,255,0.03)" filter="url(#glow)"></path>
+            <path class="morph-blob morph-blob-2" d="" fill="rgba(255,255,255,0.02)" filter="url(#glow)"></path>
+            <path class="morph-blob morph-blob-3" d="" fill="rgba(255,255,255,0.04)" filter="url(#glow)"></path>
+        </svg>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+        <div class="parallax-bg layer-1"></div>
+        <div class="parallax-bg layer-2"></div>
+        <div class="parallax-bg layer-3"></div>
+        
+        <!-- Morphing Shapes in Hero -->
+        <div class="morphing-shapes-hero">
+            <div class="morph-shape shape-1"></div>
+            <div class="morph-shape shape-2"></div>
+            <div class="morph-shape shape-3"></div>
+        </div>
+        
+        <!-- Logic Aesthetic Objects in Hero -->
+        <div class="logic-objects-hero">
+            <div class="binary-code hero-binary-1">10101001</div>
+            <div class="binary-code hero-binary-2">01101010</div>
+            <div class="logic-gate gate-and-hero">
+                <svg viewBox="0 0 100 100">
+                    <path d="M20,50 Q50,20 80,50 L80,80 Q50,80 20,80 Z" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                    <circle cx="30" cy="40" r="3" fill="rgba(255,255,255,0.5)"/>
+                    <circle cx="30" cy="60" r="3" fill="rgba(255,255,255,0.5)"/>
+                    <circle cx="75" cy="50" r="3" fill="rgba(255,255,255,0.5)"/>
+                </svg>
+            </div>
+            <div class="circuit-node node-hero-1"></div>
+            <div class="circuit-node node-hero-2"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <div class="hero-content animate-fade-in">
+                <h1 class="main-title">
+                    <span class="title-line">Logic and</span>
+                    <span class="title-line">Computer</span>
+                    <span class="title-line">Addition</span>
+                </h1>
+                <p class="subtitle">Understanding the Foundations of Logical Reasoning</p>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>SCROLL</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Section 1: Introduction -->
+    <section class="content-section section-1" data-section="1">
+        <div class="parallax-bg-image bg-pattern-1"></div>
+        <div class="floating-shapes">
+            <div class="shape circle-1"></div>
+            <div class="shape square-1"></div>
+            <div class="shape triangle-1"></div>
+        </div>
+        <!-- Logic Objects Section 1 -->
+        <div class="section-logic-objects">
+            <div class="binary-code section-binary-1">01011010</div>
+            <div class="logic-gate gate-or-1">
+                <svg viewBox="0 0 100 100">
+                    <path d="M20,50 Q50,20 80,50 Q50,80 20,50" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
+                    <circle cx="25" cy="40" r="3" fill="rgba(255,255,255,0.4)"/>
+                    <circle cx="25" cy="60" r="3" fill="rgba(255,255,255,0.4)"/>
+                    <circle cx="75" cy="50" r="3" fill="rgba(255,255,255,0.4)"/>
+                </svg>
+            </div>
+            <div class="math-symbol symbol-plus-1">+</div>
+            <div class="circuit-line line-section-1"></div>
+        </div>
+        <div class="content-container section-1-layout">
+            <div class="text-block slide-in-left">
+                <h2 class="section-title">Propositions and Basic Terms</h2>
+                
+                <!-- Main Definition Card -->
+                <div class="definition-card fade-in-up">
+                    <h3 class="subsection-title">What is a Proposition?</h3>
+                    <p class="definition-text">A <strong>proposition</strong> is a statement that is either <strong>true</strong> or <strong>false</strong>, but not both. Logic is the science or study of how to evaluate arguments and reasoning. It provides the foundation for mathematical reasoning and computer operations.</p>
+                </div>
+                
+                <!-- Examples Grid -->
+                <div class="examples-grid">
+                    <!-- Propositions Examples -->
+                    <div class="example-card propositions-card">
+                        <div class="card-header">
+                            <h4 class="subsection-subtitle">✓ Propositions</h4>
+                            <p class="card-subtitle">Statements with truth values</p>
+                        </div>
+                        <div class="examples-content">
+                            <div class="example-item true-example">
+                                <span class="example-icon">T</span>
+                                <div class="example-text">
+                                    <p class="example-statement">"2 + 2 = 4"</p>
+                                    <p class="example-status">True</p>
+                                </div>
+                            </div>
+                            <div class="example-item true-example">
+                                <span class="example-icon">T</span>
+                                <div class="example-text">
+                                    <p class="example-statement">"Water boils at 100°C"</p>
+                                    <p class="example-status">True</p>
+                                </div>
+                            </div>
+                            <div class="example-item false-example">
+                                <span class="example-icon">F</span>
+                                <div class="example-text">
+                                    <p class="example-statement">"The moon is made of cheese"</p>
+                                    <p class="example-status">False</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Not Propositions Examples -->
+                    <div class="example-card non-propositions-card">
+                        <div class="card-header">
+                            <h4 class="subsection-subtitle">✗ Not Propositions</h4>
+                            <p class="card-subtitle">Cannot be true or false</p>
+                        </div>
+                        <div class="examples-content">
+                            <div class="example-item non-example">
+                                <span class="example-icon">?</span>
+                                <div class="example-text">
+                                    <p class="example-statement">"What time is it?"</p>
+                                    <p class="example-status">Question</p>
+                                </div>
+                            </div>
+                            <div class="example-item non-example">
+                                <span class="example-icon">!</span>
+                                <div class="example-text">
+                                    <p class="example-statement">"Have a nice day!"</p>
+                                    <p class="example-status">Command</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Key Concepts Grid -->
+                <div class="key-concepts-grid">
+                    <div class="concept-card">
+                        <div class="concept-icon">p</div>
+                        <h4 class="concept-title">Atomic/Simple Propositions</h4>
+                        <p class="concept-desc">Single statements like "p" or "q"</p>
+                    </div>
+                    <div class="concept-card">
+                        <div class="concept-icon">∧∨</div>
+                        <h4 class="concept-title">Compound Propositions</h4>
+                        <p class="concept-desc">Connected by logical operators (AND, OR, NOT)</p>
+                    </div>
+                    <div class="concept-card">
+                        <div class="concept-icon">T/F</div>
+                        <h4 class="concept-title">Truth Value</h4>
+                        <p class="concept-desc">Either True (T) or False (F)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Logical Operators with Flip Cards -->
+    <section class="content-section section-2 flip-cards-section" data-section="2">
+        <div class="parallax-bg-image bg-pattern-2"></div>
+        <div class="floating-shapes">
+            <div class="shape circle-2"></div>
+            <div class="shape square-2"></div>
+        </div>
+        
+        <div class="section-header">
+            <h2 class="section-title">Logical Operators & Truth Tables</h2>
+            <p class="section-subtitle">Click on each card to flip and learn about different logical operators</p>
+        </div>
+        
+        <div class="flip-cards-container">
+            <!-- Conjunction Card -->
+            <div class="flip-card-wrapper">
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3 class="operator-title">Conjunction (∧)</h3>
+                            <p class="operator-formula">p ∧ q</p>
+                            <p class="operator-read">Read as: "p and q"</p>
+                            <p class="operator-desc">Result is true when BOTH p AND q are true</p>
+                            <div class="flip-hint">Click to flip</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3 class="back-title">Truth Table</h3>
+                            <table class="truth-table flip-table">
+                                <thead><tr><th>p</th><th>q</th><th>p ∧ q</th></tr></thead>
+                                <tbody>
+                                    <tr><td>T</td><td>T</td><td class="tt-true">T</td></tr>
+                                    <tr><td>T</td><td>F</td><td class="tt-false">F</td></tr>
+                                    <tr><td>F</td><td>T</td><td class="tt-false">F</td></tr>
+                                    <tr><td>F</td><td>F</td><td class="tt-false">F</td></tr>
+                                </tbody>
+                            </table>
+                            <div class="examples-list">
+                                <p class="examples-title"><strong>Examples:</strong></p>
+                                <ul>
+                                    <li>"I have a pen AND a pencil"</li>
+                                    <li>"The student studies hard AND attends classes"</li>
+                                    <li>"It's sunny AND warm today"</li>
+                                    <li>"You must be 18 AND have ID to vote"</li>
+                                </ul>
+                            </div>
+                            <p class="card-note"><em>All conditions must be true for the result to be true</em></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Disjunction Card -->
+            <div class="flip-card-wrapper">
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3 class="operator-title">Disjunction (∨)</h3>
+                            <p class="operator-formula">p ∨ q</p>
+                            <p class="operator-read">Read as: "p or q"</p>
+                            <p class="operator-desc">Result is true when AT LEAST ONE of p or q is true</p>
+                            <div class="flip-hint">Click to flip</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3 class="back-title">Truth Table</h3>
+                            <table class="truth-table flip-table">
+                                <thead><tr><th>p</th><th>q</th><th>p ∨ q</th></tr></thead>
+                                <tbody>
+                                    <tr><td>T</td><td>T</td><td class="tt-true">T</td></tr>
+                                    <tr><td>T</td><td>F</td><td class="tt-true">T</td></tr>
+                                    <tr><td>F</td><td>T</td><td class="tt-true">T</td></tr>
+                                    <tr><td>F</td><td>F</td><td class="tt-false">F</td></tr>
+                                </tbody>
+                            </table>
+                            <div class="examples-list">
+                                <p class="examples-title"><strong>Examples:</strong></p>
+                                <ul>
+                                    <li>"I'll have coffee OR tea"</li>
+                                    <li>"You can pay with cash OR credit card"</li>
+                                    <li>"The meeting is Monday OR Tuesday"</li>
+                                    <li>"Students can choose math OR science"</li>
+                                </ul>
+                            </div>
+                            <p class="card-note"><em>At least one condition must be true for the result to be true</em></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Negation Card -->
+            <div class="flip-card-wrapper">
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3 class="operator-title">Negation (~ or ¬)</h3>
+                            <p class="operator-formula">~p</p>
+                            <p class="operator-read">Read as: "not p"</p>
+                            <p class="operator-desc">Reverses the truth value</p>
+                            <div class="flip-hint">Click to flip</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3 class="back-title">Truth Table</h3>
+                            <table class="truth-table flip-table">
+                                <thead><tr><th>p</th><th>~p</th></tr></thead>
+                                <tbody>
+                                    <tr><td>T</td><td class="tt-false">F</td></tr>
+                                    <tr><td>F</td><td class="tt-true">T</td></tr>
+                                </tbody>
+                            </table>
+                            <div class="examples-list">
+                                <p class="examples-title"><strong>Examples:</strong></p>
+                                <ul>
+                                    <li>If p = "It is sunny", then ~p = "It is NOT sunny"</li>
+                                    <li>If p = "I am happy", then ~p = "I am NOT happy"</li>
+                                    <li>If p = "The door is open", then ~p = "The door is NOT open"</li>
+                                    <li>If p = "The test is easy", then ~p = "The test is NOT easy"</li>
+                                </ul>
+                            </div>
+                            <p class="card-note"><em>Negation simply reverses the truth value</em></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conditional Card -->
+            <div class="flip-card-wrapper">
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3 class="operator-title">Conditional (→)</h3>
+                            <p class="operator-formula">p → q</p>
+                            <p class="operator-read">Read as: "if p then q"</p>
+                            <p class="operator-desc">False only when p is true AND q is false</p>
+                            <div class="flip-hint">Click to flip</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3 class="back-title">Truth Table</h3>
+                            <table class="truth-table flip-table">
+                                <thead><tr><th>p</th><th>q</th><th>p → q</th></tr></thead>
+                                <tbody>
+                                    <tr><td>T</td><td>T</td><td class="tt-true">T</td></tr>
+                                    <tr><td>T</td><td>F</td><td class="tt-false">F</td></tr>
+                                    <tr><td>F</td><td>T</td><td class="tt-true">T</td></tr>
+                                    <tr><td>F</td><td>F</td><td class="tt-true">T</td></tr>
+                                </tbody>
+                            </table>
+                            <div class="examples-list">
+                                <p class="examples-title"><strong>Examples:</strong></p>
+                                <ul>
+                                    <li>"If it rains, then I will bring an umbrella"</li>
+                                    <li>"If you study hard, then you will pass"</li>
+                                    <li>"If the temperature drops, then it will snow"</li>
+                                    <li>"If you press the button, then the light turns on"</li>
+                                </ul>
+                            </div>
+                            <p class="card-note"><em>Only false when premise is true but conclusion is false</em></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Biconditional Card -->
+            <div class="flip-card-wrapper">
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3 class="operator-title">Biconditional (⟷)</h3>
+                            <p class="operator-formula">p ⟷ q</p>
+                            <p class="operator-read">Read as: "p if and only if q"</p>
+                            <p class="operator-desc">True when p and q have the SAME truth value</p>
+                            <div class="flip-hint">Click to flip</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3 class="back-title">Truth Table</h3>
+                            <table class="truth-table flip-table">
+                                <thead><tr><th>p</th><th>q</th><th>p ⟷ q</th></tr></thead>
+                                <tbody>
+                                    <tr><td>T</td><td>T</td><td class="tt-true">T</td></tr>
+                                    <tr><td>T</td><td>F</td><td class="tt-false">F</td></tr>
+                                    <tr><td>F</td><td>T</td><td class="tt-false">F</td></tr>
+                                    <tr><td>F</td><td>F</td><td class="tt-true">T</td></tr>
+                                </tbody>
+                            </table>
+                            <div class="examples-list">
+                                <p class="examples-title"><strong>Examples:</strong></p>
+                                <ul>
+                                    <li>"I will pass if and only if I study hard"</li>
+                                    <li>"The light is on if and only if the switch is up"</li>
+                                    <li>"You can vote if and only if you are 18"</li>
+                                    <li>"The door opens if and only if the key is turned"</li>
+                                </ul>
+                            </div>
+                            <p class="card-note"><em>Both statements must have the same truth value</em></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exclusive-OR Card -->
+            <div class="flip-card-wrapper">
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3 class="operator-title">Exclusive-OR (⨁)</h3>
+                            <p class="operator-formula">p ⨁ q</p>
+                            <p class="operator-read">Read as: "p exclusive-or q"</p>
+                            <p class="operator-desc">True when p and q have DIFFERENT truth values</p>
+                            <div class="flip-hint">Click to flip</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3 class="back-title">Truth Table</h3>
+                            <table class="truth-table flip-table">
+                                <thead><tr><th>p</th><th>q</th><th>p ⨁ q</th></tr></thead>
+                                <tbody>
+                                    <tr><td>T</td><td>T</td><td class="tt-false">F</td></tr>
+                                    <tr><td>T</td><td>F</td><td class="tt-true">T</td></tr>
+                                    <tr><td>F</td><td>T</td><td class="tt-true">T</td></tr>
+                                    <tr><td>F</td><td>F</td><td class="tt-false">F</td></tr>
+                                </tbody>
+                            </table>
+                            <div class="examples-list">
+                                <p class="examples-title"><strong>Examples:</strong></p>
+                                <ul>
+                                    <li>"Either coffee OR tea, but not both"</li>
+                                    <li>"You can go left OR right, but not both ways"</li>
+                                    <li>"The answer is true OR false, but not both"</li>
+                                    <li>"You can have cake OR ice cream, but not both"</li>
+                                </ul>
+                            </div>
+                            <p class="card-note"><em>True when exactly one condition is true</em></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Compound Propositions -->
+    <section class="full-text-section compound-propositions-section" data-section="3">
+        <div class="parallax-bg-image bg-pattern-3"></div>
+        
+        <div class="section-3-container">
+            <!-- Section Header -->
+            <div class="section-3-header fade-in-up">
+                <h2 class="large-title scale-in">
+                    <span class="word">Compound</span>
+                    <span class="word">Propositions</span>
+                    <span class="word">& Truth Tables</span>
+                </h2>
+                <div class="intro-card">
+                    <h3 class="intro-title">Building Compound Propositions</h3>
+                    <p class="intro-text">Compound propositions are formed by combining simple propositions using logical operators.</p>
+                </div>
+            </div>
+            
+            <!-- Example 1 Card -->
+            <div class="compound-example-card fade-in-up">
+                <div class="example-header">
+                    <div class="example-number">01</div>
+                    <div class="example-title-group">
+                        <h3 class="example-title">Example 1: (~p ∨ ~q)</h3>
+                        <p class="example-read">"Not p OR not q"</p>
+                    </div>
+                </div>
+                <p class="example-description">This means: either p is false, or q is false, or both.</p>
+                <div class="table-container">
+                    <table class="truth-table compound-table">
+                        <thead><tr><th>p</th><th>q</th><th>~p</th><th>~q</th><th>~p ∨ ~q</th></tr></thead>
+                        <tbody>
+                            <tr><td>T</td><td>T</td><td class="tt-false">F</td><td class="tt-false">F</td><td class="tt-false">F</td></tr>
+                            <tr><td>T</td><td>F</td><td class="tt-false">F</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                            <tr><td>F</td><td>T</td><td class="tt-true">T</td><td class="tt-false">F</td><td class="tt-true">T</td></tr>
+                            <tr><td>F</td><td>F</td><td class="tt-true">T</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- More Examples Section -->
+            <div class="more-examples-section">
+                <h3 class="more-examples-title fade-in-up">More Examples of Compound Propositions</h3>
+                
+                <!-- Example 2 Card -->
+                <div class="compound-example-card fade-in-up">
+                    <div class="example-header">
+                        <div class="example-number">02</div>
+                        <div class="example-title-group">
+                            <h3 class="example-title">Example 2: (p ∧ (q ∨ ~r))</h3>
+                        </div>
+                    </div>
+                    <p class="example-description">This means: <em>p AND (q OR NOT r)</em>. The proposition is true only if p is true, and at least one of q or not r is true.</p>
+                    <div class="table-scroll">
+                        <table class="truth-table compound-table">
+                            <thead><tr><th>p</th><th>q</th><th>r</th><th>~r</th><th>q ∨ ~r</th><th>p ∧ (q ∨ ~r)</th></tr></thead>
+                            <tbody>
+                                <tr><td>T</td><td>T</td><td>T</td><td class="tt-false">F</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                                <tr><td>T</td><td>T</td><td>F</td><td class="tt-true">T</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                                <tr><td>T</td><td>F</td><td>T</td><td class="tt-false">F</td><td class="tt-false">F</td><td class="tt-false">F</td></tr>
+                                <tr><td>T</td><td>F</td><td>F</td><td class="tt-true">T</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                                <tr><td>F</td><td>T</td><td>T</td><td class="tt-false">F</td><td class="tt-true">T</td><td class="tt-false">F</td></tr>
+                                <tr><td>F</td><td>T</td><td>F</td><td class="tt-true">T</td><td class="tt-true">T</td><td class="tt-false">F</td></tr>
+                                <tr><td>F</td><td>F</td><td>T</td><td class="tt-false">F</td><td class="tt-false">F</td><td class="tt-false">F</td></tr>
+                                <tr><td>F</td><td>F</td><td>F</td><td class="tt-true">T</td><td class="tt-true">T</td><td class="tt-false">F</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Example 3 Card (Logical Equivalence) -->
+                <div class="compound-example-card equivalence-card fade-in-up">
+                    <div class="example-header">
+                        <div class="example-number">03</div>
+                        <div class="example-title-group">
+                            <h3 class="example-title">Example 3: ((p → q) ⟷ (~q → ~p))</h3>
+                        </div>
+                    </div>
+                    <p class="example-description">This compares a conditional and its contrapositive: <em>p → q</em> is logically equivalent to <em>~q → ~p</em>. Let's see their truth tables work step by step.</p>
+                    <div class="table-container">
+                        <table class="truth-table compound-table">
+                            <thead><tr><th>p</th><th>q</th><th>~p</th><th>~q</th><th>p → q</th><th>~q → ~p</th><th>Equivalence?</th></tr></thead>
+                            <tbody>
+                                <tr><td>T</td><td>T</td><td class="tt-false">F</td><td class="tt-false">F</td><td class="tt-true">T</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                                <tr><td>T</td><td>F</td><td class="tt-false">F</td><td class="tt-true">T</td><td class="tt-false">F</td><td class="tt-false">F</td><td class="tt-true">T</td></tr>
+                                <tr><td>F</td><td>T</td><td class="tt-true">T</td><td class="tt-false">F</td><td class="tt-true">T</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                                <tr><td>F</td><td>F</td><td class="tt-true">T</td><td class="tt-true">T</td><td class="tt-true">T</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="equivalence-notes">
+                        <ul class="notes-list">
+                            <li><strong>(p → q):</strong> False only if p is true and q is false.</li>
+                            <li><strong>Contrapositive (~q → ~p):</strong> False only if ~q is true and ~p is false (i.e., q is false, p is true).</li>
+                            <li>The last column shows both are logically equivalent (all T) for each row – this is a classic example of logical equivalence.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Section 5: Logical Equivalence & Classification -->
+    <section class="classification-section" data-section="5">
+        <div class="parallax-bg-image bg-pattern-5"></div>
+        
+        <div class="classification-container">
+            <!-- Section Header -->
+            <div class="classification-header fade-in-up">
+                <h2 class="section-title-main">Logical Equivalence & Classification</h2>
+                <p class="section-subtitle-main">Understanding Tautology, Contradiction, and Contingency</p>
+            </div>
+            
+            <!-- Main Classification Cards -->
+            <div class="classification-cards-grid">
+                <!-- Tautology Card -->
+                <div class="classification-card tautology-card fade-in-up">
+                    <div class="class-card-header">
+                        <div class="class-icon">✓</div>
+                        <h3>Tautology</h3>
+                    </div>
+                    <p class="class-description">A <strong>tautology</strong> is a logic statement that is always true, no matter what values its pieces have. The result column in its truth table is always T (true).</p>
+                    <div class="formula-box">
+                        <p class="formula-label"><strong>Example Equation:</strong></p>
+                        <p class="formula-text">p ∨ ~p (p OR NOT p)</p>
+                        <p class="formula-example"><em>where p: "It is raining"</em></p>
+                    </div>
+                    <table class="truth-table classification-table">
+                        <thead><tr><th>p</th><th>~p</th><th>p ∨ ~p</th></tr></thead>
+                        <tbody>
+                            <tr><td>T</td><td class="tt-false">F</td><td class="tt-true">T</td></tr>
+                            <tr><td>F</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                        </tbody>
+                    </table>
+                    <p class="class-note">Notice: No matter if p is true or false, <strong>p ∨ ~p</strong> is always true!</p>
+                    <p class="real-world-example"><strong>Real-world Example:</strong> "It is raining OR it is not raining." This statement is logically always true.</p>
+                </div>
+                
+                <!-- Contradiction Card -->
+                <div class="classification-card contradiction-card fade-in-up">
+                    <div class="class-card-header">
+                        <div class="class-icon">✗</div>
+                        <h3>Contradiction</h3>
+                    </div>
+                    <p class="class-description">A <strong>contradiction</strong> is a statement that is always false: it's impossible for it to ever come out true, no matter what.</p>
+                    <div class="formula-box">
+                        <p class="formula-label"><strong>Example Equation:</strong></p>
+                        <p class="formula-text">p ∧ ~p (p AND NOT p)</p>
+                        <p class="formula-example"><em>where p: "The number is even"</em></p>
+                    </div>
+                    <table class="truth-table classification-table">
+                        <thead><tr><th>p</th><th>~p</th><th>p ∧ ~p</th></tr></thead>
+                        <tbody>
+                            <tr><td>T</td><td class="tt-false">F</td><td class="tt-false">F</td></tr>
+                            <tr><td>F</td><td class="tt-true">T</td><td class="tt-false">F</td></tr>
+                        </tbody>
+                    </table>
+                    <p class="class-note">Notice: No matter the input, <strong>p ∧ ~p</strong> is always false.</p>
+                    <p class="real-world-example"><strong>Real-world Example:</strong> "This number is both even AND odd." This can never be true.</p>
+                </div>
+                
+                <!-- Contingency Card -->
+                <div class="classification-card contingency-card fade-in-up">
+                    <div class="class-card-header">
+                        <div class="class-icon">↔</div>
+                        <h3>Contingency</h3>
+                    </div>
+                    <p class="class-description">A <strong>contingency</strong> is a statement whose truth depends on its components; sometimes it's true, sometimes false. Most real-world statements are contingencies.</p>
+                    <div class="formula-box">
+                        <p class="formula-label"><strong>Example Equation:</strong></p>
+                        <p class="formula-text">p ∧ q (p AND q)</p>
+                        <p class="formula-example"><em>where p: "Student passes the exam"<br>where q: "Student attends all classes"</em></p>
+                    </div>
+                    <table class="truth-table classification-table">
+                        <thead><tr><th>p</th><th>q</th><th>p ∧ q</th></tr></thead>
+                        <tbody>
+                            <tr><td>T</td><td>T</td><td class="tt-true">T</td></tr>
+                            <tr><td>T</td><td>F</td><td class="tt-false">F</td></tr>
+                            <tr><td>F</td><td>T</td><td class="tt-false">F</td></tr>
+                            <tr><td>F</td><td>F</td><td class="tt-false">F</td></tr>
+                        </tbody>
+                    </table>
+                    <p class="class-note">Depending on p and q, <strong>p ∧ q</strong> can be true OR false!</p>
+                    <p class="real-world-example"><strong>Real-world Example:</strong> "A student passes the exam AND attends all classes." This will be true only if a student does both; otherwise, it's false.</p>
+                </div>
+            </div>
+            
+            <!-- More Examples Section -->
+            <div class="more-classification-examples">
+                <div class="examples-header fade-in-up">
+                    <h3 class="examples-main-title">More Examples: Understanding Classification</h3>
+                    <p class="examples-intro">Let's explore more examples of <strong>Tautology</strong>, <strong>Contradiction</strong>, and <strong>Contingency</strong> to better understand how to classify logical statements.</p>
+                </div>
+                
+                <!-- Tautology Examples -->
+                <div class="examples-category tautology-examples fade-in-up">
+                    <div class="category-header">
+                        <h4>✓ Additional Tautology Examples</h4>
+                        <p class="category-subtitle">Remember: A tautology is ALWAYS true, no matter what!</p>
+                    </div>
+                    <div class="examples-grid-category">
+                        <div class="example-card-category">
+                            <h5 class="example-card-title">Example 1: p ∨ ~p ∨ q</h5>
+                            <p class="example-card-desc"><em>"Either p is true, or p is false, or q is true"</em></p>
+                            <table class="truth-table example-table">
+                                <thead><tr><th>p</th><th>q</th><th>~p</th><th>p ∨ ~p</th><th>p ∨ ~p ∨ q</th></tr></thead>
+                                <tbody>
+                                    <tr><td>T</td><td>T</td><td class="tt-false">F</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                                    <tr><td>T</td><td>F</td><td class="tt-false">F</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                                    <tr><td>F</td><td>T</td><td class="tt-true">T</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                                    <tr><td>F</td><td>F</td><td class="tt-true">T</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                                </tbody>
+                            </table>
+                            <p class="example-note success-note"><strong>✓ Tautology!</strong> All rows are TRUE. Since <strong>p ∨ ~p</strong> is always true (p is either true or false), adding <strong>∨ q</strong> keeps it always true!</p>
+                        </div>
+                        <div class="example-card-category">
+                            <h5 class="example-card-title">Example 2: (p → q) ∨ (q → p)</h5>
+                            <p class="example-card-desc"><em>"Either 'if p then q' OR 'if q then p' is true"</em></p>
+                            <table class="truth-table example-table">
+                                <thead><tr><th>p</th><th>q</th><th>p → q</th><th>q → p</th><th>(p → q) ∨ (q → p)</th></tr></thead>
+                                <tbody>
+                                    <tr><td>T</td><td>T</td><td class="tt-true">T</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                                    <tr><td>T</td><td>F</td><td class="tt-false">F</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                                    <tr><td>F</td><td>T</td><td class="tt-true">T</td><td class="tt-false">F</td><td class="tt-true">T</td></tr>
+                                    <tr><td>F</td><td>F</td><td class="tt-true">T</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                                </tbody>
+                            </table>
+                            <p class="example-note success-note"><strong>✓ Tautology!</strong> All rows are TRUE. At least one conditional is always true.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contradiction Examples -->
+                <div class="examples-category contradiction-examples fade-in-up">
+                    <div class="category-header">
+                        <h4>✗ Additional Contradiction Examples</h4>
+                        <p class="category-subtitle">Remember: A contradiction is ALWAYS false, no matter what!</p>
+                    </div>
+                    <div class="examples-grid-category">
+                        <div class="example-card-category">
+                            <h5 class="example-card-title">Example 1: (p ∨ q) ∧ ~(p ∨ q)</h5>
+                            <p class="example-card-desc"><em>"(p or q) AND NOT (p or q)"</em></p>
+                            <table class="truth-table example-table">
+                                <thead><tr><th>p</th><th>q</th><th>p ∨ q</th><th>~(p ∨ q)</th><th>(p ∨ q) ∧ ~(p ∨ q)</th></tr></thead>
+                                <tbody>
+                                    <tr><td>T</td><td>T</td><td class="tt-true">T</td><td class="tt-false">F</td><td class="tt-false">F</td></tr>
+                                    <tr><td>T</td><td>F</td><td class="tt-true">T</td><td class="tt-false">F</td><td class="tt-false">F</td></tr>
+                                    <tr><td>F</td><td>T</td><td class="tt-true">T</td><td class="tt-false">F</td><td class="tt-false">F</td></tr>
+                                    <tr><td>F</td><td>F</td><td class="tt-false">F</td><td class="tt-true">T</td><td class="tt-false">F</td></tr>
+                                </tbody>
+                            </table>
+                            <p class="example-note success-note"><strong>✓ Contradiction!</strong> All rows are FALSE. Can't be both true and false!</p>
+                        </div>
+                        <div class="example-card-category">
+                            <h5 class="example-card-title">Example 2: (p → q) ∧ (p ∧ ~q)</h5>
+                            <p class="example-card-desc"><em>"'If p then q' AND 'p is true but q is false'"</em></p>
+                            <table class="truth-table example-table">
+                                <thead><tr><th>p</th><th>q</th><th>~q</th><th>p → q</th><th>p ∧ ~q</th><th>(p → q) ∧ (p ∧ ~q)</th></tr></thead>
+                                <tbody>
+                                    <tr><td>T</td><td>T</td><td class="tt-false">F</td><td class="tt-true">T</td><td class="tt-false">F</td><td class="tt-false">F</td></tr>
+                                    <tr><td>T</td><td>F</td><td class="tt-true">T</td><td class="tt-false">F</td><td class="tt-true">T</td><td class="tt-false">F</td></tr>
+                                    <tr><td>F</td><td>T</td><td class="tt-false">F</td><td class="tt-true">T</td><td class="tt-false">F</td><td class="tt-false">F</td></tr>
+                                    <tr><td>F</td><td>F</td><td class="tt-true">T</td><td class="tt-true">T</td><td class="tt-false">F</td><td class="tt-false">F</td></tr>
+                                </tbody>
+                            </table>
+                            <p class="example-note success-note"><strong>✓ Contradiction!</strong> Logically impossible for both to be true at once.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contingency Examples -->
+                <div class="examples-category contingency-examples fade-in-up">
+                    <div class="category-header">
+                        <h4>↔ Additional Contingency Examples</h4>
+                        <p class="category-subtitle">Remember: A contingency can be either true or false depending on the values!</p>
+                    </div>
+                    <div class="examples-grid-category">
+                        <div class="example-card-category">
+                            <h5 class="example-card-title">Example 1: (p → q) ∧ p</h5>
+                            <p class="example-card-desc"><em>"'If p then q' AND p is true"</em></p>
+                            <table class="truth-table example-table">
+                                <thead><tr><th>p</th><th>q</th><th>p → q</th><th>(p → q) ∧ p</th></tr></thead>
+                                <tbody>
+                                    <tr><td>T</td><td>T</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                                    <tr><td>T</td><td>F</td><td class="tt-false">F</td><td class="tt-false">F</td></tr>
+                                    <tr><td>F</td><td>T</td><td class="tt-true">T</td><td class="tt-false">F</td></tr>
+                                    <tr><td>F</td><td>F</td><td class="tt-true">T</td><td class="tt-false">F</td></tr>
+                                </tbody>
+                            </table>
+                            <p class="example-note success-note"><strong>✓ Contingency!</strong> True in row 1, false in all others.</p>
+                        </div>
+                        <div class="example-card-category">
+                            <h5 class="example-card-title">Example 2: (p ∨ q) → (p ∧ q)</h5>
+                            <p class="example-card-desc"><em>"If (p or q) then (p and q)"</em></p>
+                            <table class="truth-table example-table">
+                                <thead><tr><th>p</th><th>q</th><th>p ∨ q</th><th>p ∧ q</th><th>(p ∨ q) → (p ∧ q)</th></tr></thead>
+                                <tbody>
+                                    <tr><td>T</td><td>T</td><td class="tt-true">T</td><td class="tt-true">T</td><td class="tt-true">T</td></tr>
+                                    <tr><td>T</td><td>F</td><td class="tt-true">T</td><td class="tt-false">F</td><td class="tt-false">F</td></tr>
+                                    <tr><td>F</td><td>T</td><td class="tt-true">T</td><td class="tt-false">F</td><td class="tt-false">F</td></tr>
+                                    <tr><td>F</td><td>F</td><td class="tt-false">F</td><td class="tt-false">F</td><td class="tt-true">T</td></tr>
+                                </tbody>
+                            </table>
+                            <p class="example-note success-note"><strong>✓ Contingency!</strong> Sometimes true, sometimes false—depends on values.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Classification Guide -->
+                <div class="classification-guide-box fade-in-up">
+                    <h3 class="guide-title">Quick Classification Guide</h3>
+                    <p class="guide-intro"><strong>To classify a statement:</strong></p>
+                    <ol class="guide-steps">
+                        <li><strong>Build the truth table</strong> for all possible combinations</li>
+                        <li><strong>Look at the final column:</strong>
+                            <ul class="guide-classifications">
+                                <li>All TRUE → <strong class="tautology-highlight">Tautology</strong></li>
+                                <li>All FALSE → <strong class="contradiction-highlight">Contradiction</strong></li>
+                                <li>Mix of TRUE and FALSE → <strong class="contingency-highlight">Contingency</strong></li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Quiz Section -->
+    <section class="quiz-section" data-section="6">
+        <div class="parallax-bg-image bg-pattern-6"></div>
+        
+        <div class="quiz-container-wrapper">
+            <!-- Quiz Header -->
+            <div class="quiz-header fade-in-up">
+                <h2 class="quiz-main-title">Test Your Knowledge</h2>
+                <p class="quiz-subtitle">Quiz - 20 Questions</p>
+            </div>
+
+            <!-- Name Input Section -->
+            <div id="nameInputSection" class="name-input-section fade-in-up">
+                <div class="name-input-card">
+                    <h3 class="input-title">Enter Your Full Name to Begin</h3>
+                    <div class="input-wrapper">
+                        <input type="text" id="studentName" class="name-input" placeholder="Your Full Name" autocomplete="off">
+                    </div>
+                    <button class="quiz-start-button" onclick="startQuiz()">Start Quiz</button>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div id="progressSection" class="progress-section" style="display: none;">
+                <h4 class="progress-title">Progress: <span id="progressText">0/20</span></h4>
+                <div class="progress-bar-container">
+                    <div id="progressBar" class="progress-bar-fill">
+                        <span class="progress-percentage">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Container -->
+            <div id="quizContainer" class="quiz-questions-container" style="display: none;"></div>
+            
+            <!-- Results Section -->
+            <div id="resultsSection" class="results-section" style="display: none;">
+                <div class="results-card">
+                    <h2 class="results-title">Quiz Complete! <br><p>Your score is automatically saved!</p></h2>
+                    <div id="resultsContent" class="results-content"></div>
+                    <button class="download-button" onclick="downloadCertificate()">Download Result (JPEG)</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secret Admin Login Button (Hidden) -->
+    <div class="admin-login-trigger" onclick="showAdminLogin()" title="Admin Access">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="rgba(255,255,255,0.3)">
+            <path d="M12 1L8 5h3v4h2V5h3m2 18H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h3v2H6v12h12V9h-3V7h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2Z"/>
+        </svg>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="admin-modal">
+        <div class="admin-modal-content">
+            <div class="admin-modal-header">
+                <h2 class="admin-modal-title">Admin Login</h2>
+                <button class="admin-close-btn" onclick="closeAdminLogin()">&times;</button>
+            </div>
+            <div class="admin-modal-body">
+                <div class="admin-form-group">
+                    <label for="adminUsername">Username/Email</label>
+                    <input type="text" id="adminUsername" class="admin-input" placeholder="Enter username or email" autocomplete="username">
+                </div>
+                <div class="admin-form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" class="admin-input" placeholder="Enter password" autocomplete="current-password">
+                </div>
+                <div id="adminError" class="admin-error" style="display: none;"></div>
+                <button class="admin-submit-btn" onclick="adminLogin()">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard (Hidden by default) -->
+    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
+        <div class="admin-dashboard-header">
+            <h1 class="admin-dashboard-title">Admin Dashboard</h1>
+            <div class="admin-dashboard-actions">
+                <button class="admin-btn admin-btn-export" onclick="exportToPDF()">Export PDF</button>
+                <button class="admin-btn admin-btn-export" onclick="exportToCSV()">Export CSV</button>
+                <button class="admin-btn admin-btn-logout" onclick="adminLogout()">Logout</button>
+            </div>
+        </div>
+        <div class="admin-dashboard-content">
+            <div class="admin-stats">
+                <div class="admin-stat-card">
+                    <div class="admin-stat-value" id="totalStudents">0</div>
+                    <div class="admin-stat-label">Total Students</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-value" id="averageScore">0%</div>
+                    <div class="admin-stat-label">Average Score</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-value" id="highestScore">0%</div>
+                    <div class="admin-stat-label">Highest Score</div>
+                </div>
+            </div>
+            <div class="admin-table-container">
+                <div class="admin-cards-grid" id="studentsCardsGrid">
+                    <!-- Student data will be populated here as cards -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 9: Source & Credits -->
+    <section class="credits-section" data-section="9">
+        <div class="parallax-bg layer-final-1"></div>
+        <div class="parallax-bg layer-final-2"></div>
+        
+        <!-- Logic Objects in Credits -->
+        <div class="section-logic-objects credits-logic">
+            <div class="binary-code credits-binary-1">01011010</div>
+            <div class="binary-code credits-binary-2">10100101</div>
+            <div class="logic-gate gate-credits">
+                <svg viewBox="0 0 100 100">
+                    <path d="M 20 40 Q 40 30 60 40 L 60 60 Q 40 70 20 60 Z" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                    <circle cx="20" cy="40" r="3" fill="rgba(255,255,255,0.5)"/>
+                    <circle cx="20" cy="60" r="3" fill="rgba(255,255,255,0.5)"/>
+                    <circle cx="80" cy="50" r="3" fill="rgba(255,255,255,0.5)"/>
+                </svg>
+            </div>
+            <div class="math-symbol symbol-credits">∴</div>
+        </div>
+        
+        <div class="credits-container">
+            <div class="credits-header fade-in-up">
+                <h2 class="credits-title">Source & Credits</h2>
+                <p class="credits-subtitle">Educational content and website development</p>
+            </div>
+            
+            <div class="credits-grid">
+                <!-- Educational Source Card -->
+                <div class="credits-card source-card fade-in-up">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 100 100" width="60" height="60">
+                            <rect x="20" y="20" width="60" height="80" rx="4" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="3"/>
+                            <line x1="35" y1="35" x2="65" y2="35" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                            <line x1="35" y1="50" x2="65" y2="50" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                            <line x1="35" y1="65" x2="55" y2="65" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Educational Source</h3>
+                    <div class="card-content">
+                        <h4 class="source-name">Logic and Computer Addition</h4>
+                        <p class="source-description">Comprehensive educational document covering Boolean logic, propositions, and computer operations</p>
+                        <a href="https://www.scribd.com/document/552016189/Logic-and-Computer-Addition" target="_blank" rel="noopener noreferrer" class="source-link">
+                            <span>View Source Document</span>
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                <path d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Development Team Card -->
+                <div class="credits-card team-card fade-in-up">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 100 100" width="60" height="60">
+                            <circle cx="35" cy="35" r="12" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="3"/>
+                            <circle cx="65" cy="35" r="12" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="3"/>
+                            <path d="M 20 70 Q 50 60 80 70 L 80 85 Q 50 75 20 85 Z" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="3"/>
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Development Team</h3>
+                    <div class="card-content">
+                        <h4 class="team-subtitle">Website Created By</h4>
+                        <div class="team-members">
+                            <div class="team-member">
+                                <div class="member-icon">A</div>
+                                <div class="member-name">Angel Rubia Galapon</div>
+                            </div>
+                            <div class="team-member">
+                                <div class="member-icon">J</div>
+                                <div class="member-name">Juliana Mae Ines</div>
+                            </div>
+                            <div class="team-member">
+                                <div class="member-icon">J</div>
+                                <div class="member-name">Jhun Mark Obreros</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Professor Card - Outside and below the grid -->
+            <div class="credits-card professor-card fade-in-up professor-card-bottom">
+                <div class="card-icon">
+                    <svg viewBox="0 0 100 100" width="60" height="60">
+                        <circle cx="50" cy="35" r="15" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="3"/>
+                        <path d="M 30 65 Q 50 55 70 65 L 70 80 Q 50 70 30 80 Z" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="3"/>
+                        <line x1="50" y1="50" x2="50" y2="65" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">Professor</h3>
+                <div class="card-content">
+                    <h4 class="professor-name">Maria Leonora Theresa Aguilar</h4>
+                    <p class="professor-description">Course Instructor and Educational Supervisor</p>
+                </div>
+            </div>
+            
+            <div class="back-to-top fade-in-up">
+                <a href="#hero" class="back-top-button">Back to Top</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAcqQJ5JaIehwtfyayCo8kEE6l6EIdimJ0",
+            authDomain: "mmw-reporting-9200a.firebaseapp.com",
+            projectId: "mmw-reporting-9200a",
+            storageBucket: "mmw-reporting-9200a.firebasestorage.app",
+            messagingSenderId: "991432036155",
+            appId: "1:991432036155:web:b6749a241744c1a8cb311e",
+            measurementId: "G-66V61DTX2S"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // Make Firebase functions available globally
+        window.firebaseDB = db;
+        window.firebaseAuth = auth;
+        window.firebaseFirestore = {
+            collection: collection,
+            addDoc: addDoc,
+            getDocs: getDocs,
+            query: query,
+            orderBy: orderBy,
+            Timestamp: Timestamp
+        };
+        window.firebaseAuthMethods = {
+            signInWithEmailAndPassword: signInWithEmailAndPassword,
+            signOut: signOut,
+            onAuthStateChanged: onAuthStateChanged,
+            signInAnonymously: signInAnonymously
+        };
+
+        // Monitor auth state changes
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log('User is signed in:', user.email || user.uid);
+                window.firebaseCurrentUser = user;
+            } else {
+                console.log('User is signed out');
+                window.firebaseCurrentUser = null;
+            }
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
+
