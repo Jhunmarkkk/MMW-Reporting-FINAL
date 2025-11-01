@@ -1291,6 +1291,38 @@ section,
     will-change: opacity, transform;
 }
 
+/* Force classification section to be visible on mobile */
+@media (max-width: 768px) {
+    .classification-section,
+    .classification-section.active {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        visibility: visible !important;
+        display: block !important;
+    }
+    
+    .classification-container,
+    .classification-container.active {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        visibility: visible !important;
+        display: block !important;
+    }
+    
+    .classification-header,
+    .classification-header.active {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        visibility: visible !important;
+    }
+    
+    .classification-cards-grid {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        visibility: visible !important;
+    }
+}
+
 /* Active state - When element enters viewport */
 section.active,
 .section-content.active,
@@ -4482,6 +4514,10 @@ svg.active,
     padding: 8rem 5%;
     min-height: auto;
     position: relative;
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    z-index: 1;
 }
 
 .classification-container {
@@ -4902,9 +4938,15 @@ svg.active,
     .classification-section {
         padding: 4rem 4% !important;
         overflow-x: hidden;
-        width: 100%;
-        max-width: 100vw;
+        width: 100% !important;
+        max-width: 100vw !important;
         box-sizing: border-box;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+        z-index: 1 !important;
+        min-height: auto !important;
     }
 
     .classification-container {

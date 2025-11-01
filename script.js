@@ -761,13 +761,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Observe ALL containers and elements
     const allAnimatableElements = document.querySelectorAll(
         // Sections and containers
-        'section, .section-content, .container, .section-container, .credits-container, .quiz-container-wrapper, ' +
+        'section, .section-content, .container, .section-container, .section-3-container, .classification-container, .credits-container, .quiz-container-wrapper, ' +
         // Cards and components
         '.card, .credits-card, .quiz-question-card, .flip-card, .definition-card, .example-card, .concept-card, ' +
         '.compound-example-card, .intro-card, .classification-card, .feature-card, .team-member, ' +
         // Text elements
         'h1, h2, h3, h4, h5, h6, .section-title, .subsection-title, .subsection-subtitle, ' +
-        '.cta-title, .cta-text, .credits-title, .quiz-main-title, ' +
+        '.cta-title, .cta-text, .credits-title, .quiz-main-title, .section-title-main, ' +
         // Buttons and inputs
         'button, .btn, .cta-button, .quiz-button, .submit-quiz-button, .source-link, .back-top-button, ' +
         'input, textarea, .name-input, select, ' +
@@ -799,9 +799,31 @@ document.addEventListener('DOMContentLoaded', () => {
         '.large-title, .large-subtitle, .cta-title, .cta-text, .cta-button, ' +
         '.overlay-text, .split-left, .split-right, .feature-card, .section-header, ' +
         '.definition-card, .example-card, .concept-card, .compound-example-card, .intro-card, ' +
-        '.classification-card, .examples-category, .classification-guide-box, .quiz-header, ' +
+        '.classification-card, .classification-section, .classification-container, .classification-header, ' +
+        '.examples-category, .classification-guide-box, .quiz-header, ' +
         '.name-input-section, .progress-section, .results-section'
     );
+    
+    // On mobile, immediately show classification section to ensure visibility
+    if (isMobileDevice) {
+        const classificationSection = document.querySelector('.classification-section');
+        const classificationContainer = document.querySelector('.classification-container');
+        if (classificationSection) {
+            classificationSection.classList.add('active');
+            // Force visibility
+            setTimeout(() => {
+                classificationSection.style.opacity = '1';
+                classificationSection.style.transform = 'translateY(0)';
+            }, 100);
+        }
+        if (classificationContainer) {
+            classificationContainer.classList.add('active');
+            setTimeout(() => {
+                classificationContainer.style.opacity = '1';
+                classificationContainer.style.transform = 'translateY(0)';
+            }, 150);
+        }
+    }
 
     existingAnimatedElements.forEach(element => {
         observer.observe(element);
