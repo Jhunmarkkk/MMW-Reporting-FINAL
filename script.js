@@ -1954,8 +1954,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Global functions for quiz
     window.startQuiz = function() {
         const name = document.getElementById('studentName').value.trim();
+        const errorDiv = document.getElementById('quizNameError');
+        
+        // Clear any previous error
+        errorDiv.style.display = 'none';
+        errorDiv.textContent = '';
+        
         if (!name) {
-            alert('Please enter your full name to continue!');
+            errorDiv.textContent = 'Please enter your last name to continue!';
+            errorDiv.style.display = 'block';
             return;
         }
         
@@ -1963,6 +1970,9 @@ document.addEventListener('DOMContentLoaded', () => {
         quizState.currentQuestion = 0;
         quizState.score = 0;
         quizState.selectedAnswers = [];
+        
+        // Hide error if validation passes
+        errorDiv.style.display = 'none';
         
         document.getElementById('nameInputSection').style.display = 'none';
         document.getElementById('progressSection').style.display = 'block';
