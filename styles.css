@@ -285,7 +285,10 @@ body {
 @media (hover: hover) and (pointer: fine) {
     a, button, .btn, .cta-button, .quiz-button, .admin-delete-btn, 
     input[type="button"], input[type="submit"], .flip-card, 
-    .clickable, [onclick], .quiz-option {
+    .clickable, [onclick], .quiz-option,
+    .fullscreen-toggle-btn, .back-to-top-trigger, .admin-login-trigger,
+    .admin-close-btn, .admin-submit-btn, .admin-btn,
+    .quiz-start-button, .download-button {
         cursor: none;
     }
 }
@@ -297,20 +300,14 @@ input, textarea, [contenteditable] {
     cursor: text;
 }
 
-/* Pointer cursor style for links and buttons - Desktop only */
-@media (hover: hover) and (pointer: fine) {
-    a, button, .btn, .cta-button, .quiz-button, .admin-delete-btn,
-    input[type="button"], input[type="submit"], .flip-card,
-    .quiz-option, [onclick] {
-        cursor: none;
-    }
-}
-
 /* Show pointer cursor on mobile/tablet */
 @media (hover: none) or (pointer: coarse) {
     a, button, .btn, .cta-button, .quiz-button, .admin-delete-btn,
     input[type="button"], input[type="submit"], .flip-card,
-    .quiz-option, [onclick], .clickable {
+    .quiz-option, [onclick], .clickable,
+    .fullscreen-toggle-btn, .back-to-top-trigger, .admin-login-trigger,
+    .admin-close-btn, .admin-submit-btn, .admin-btn,
+    .quiz-start-button, .download-button {
         cursor: pointer;
     }
 }
@@ -620,7 +617,6 @@ section {
     background: rgba(255, 255, 255, 0.05);
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1267,7 +1263,6 @@ section {
     background: transparent;
     color: #fff;
     border: 2px solid #fff;
-    cursor: pointer;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     transition: all 0.3s ease;
@@ -1921,7 +1916,6 @@ svg.active,
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     z-index: 9998;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
@@ -1956,7 +1950,6 @@ svg.active,
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     z-index: 9998;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
@@ -2032,7 +2025,6 @@ svg.active,
     border: none;
     color: rgba(255, 255, 255, 0.7);
     font-size: 2.5rem;
-    cursor: pointer;
     width: 40px;
     height: 40px;
     display: flex;
@@ -2106,7 +2098,6 @@ svg.active,
     color: #ffffff;
     font-size: clamp(1rem, 1.6vw, 1.2rem);
     font-weight: 600;
-    cursor: pointer;
     transition: all 0.3s ease;
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.1em;
@@ -2173,7 +2164,6 @@ svg.active,
     color: #ffffff;
     font-size: clamp(0.9rem, 1.4vw, 1rem);
     font-weight: 500;
-    cursor: pointer;
     transition: all 0.3s ease;
     font-family: 'Space Grotesk', sans-serif;
 }
@@ -2467,7 +2457,6 @@ svg.active,
     background: transparent !important;
     border: none !important;
     color: #e74c3c;
-    cursor: pointer;
     padding: 0.3rem;
     display: inline-flex !important;
     align-items: center;
@@ -4530,7 +4519,6 @@ svg.active,
     width: 100%;
     height: 100%;
     position: relative;
-    cursor: pointer;
 }
 
 .flip-card-inner {
@@ -5840,7 +5828,6 @@ svg.active,
     background: transparent;
     border: 2px solid #fff;
     color: #fff;
-    cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
     position: relative;
@@ -6043,7 +6030,6 @@ svg.active,
     border: 2px solid rgba(255, 255, 255, 0.15);
     color: #ddd;
     font-size: clamp(0.95rem, 1.4vw, 1.1rem);
-    cursor: pointer;
     transition: all 0.3s ease;
     text-align: left;
     position: relative;
@@ -6119,7 +6105,6 @@ svg.active,
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.3);
     color: #fff;
-    cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
 }
@@ -6203,7 +6188,6 @@ svg.active,
     background: #4caf50;
     border: 2px solid #4caf50;
     color: #fff;
-    cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
 }
