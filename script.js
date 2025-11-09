@@ -1258,13 +1258,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (averageScoreEl) {
                 averageScoreEl.innerHTML = `
                     <span class="admin-stat-percentage">0%</span>
-                    <span class="admin-stat-fraction">0/20</span>
+                    <span class="admin-stat-fraction">0/10</span>
                 `;
             }
             if (highestScoreEl) {
                 highestScoreEl.innerHTML = `
                     <span class="admin-stat-percentage">0%</span>
-                    <span class="admin-stat-fraction">0/20</span>
+                    <span class="admin-stat-fraction">0/10</span>
                 `;
             }
             return;
@@ -1280,7 +1280,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const highest = Math.max(...students.map(s => parseFloat(s.percentage))).toFixed(1);
         
         // Calculate actual scores (fractions)
-        const totalQuestions = students.length > 0 ? parseInt(students[0].total) : 20; // Default to 20
+        const totalQuestions = students.length > 0 ? parseInt(students[0].total) : 10; // Default to 10
         
         // Average actual score
         const averageScoreSum = students.reduce((acc, student) => acc + parseInt(student.score), 0);
@@ -1922,33 +1922,52 @@ document.addEventListener('DOMContentLoaded', () => {
     // QUIZ FUNCTIONALITY
     // ========================================
     
+    // All available quiz questions (20 total)
+    const allQuizQuestions = [
+        { q: "What is a proposition?", options: ["A question", "A statement that is either true or false", "A mathematical equation", "A computer program"], correct: 1 },
+        { q: "Which operator means 'AND'?", options: ["→", "∨", "∧", "~"], correct: 2 },
+        { q: "Which operator means 'OR'?", options: ["→", "∨", "∧", "~"], correct: 1 },
+        { q: "What does ∧ mean?", options: ["AND", "OR", "NOT", "IF-THEN"], correct: 0 },
+        { q: "What does ∨ mean?", options: ["AND", "OR", "NOT", "IF-THEN"], correct: 1 },
+        { q: "What does ~ mean?", options: ["AND", "OR", "NOT", "IF-THEN"], correct: 2 },
+        { q: "What does → mean?", options: ["AND", "OR", "NOT", "IF-THEN"], correct: 3 },
+        { q: "In p ∧ q, when is the result TRUE?", options: ["When p is true", "When q is true", "When BOTH are true", "When at least one is true"], correct: 2 },
+        { q: "In p ∨ q, when is the result TRUE?", options: ["Only when both are true", "Only when one is true", "When AT LEAST ONE is true", "Never"], correct: 2 },
+        { q: "A truth table for 2 variables has how many rows?", options: ["2", "3", "4", "5"], correct: 2 },
+        { q: "What is a tautology?", options: ["Always false", "Always true", "Sometimes true", "Cannot determine"], correct: 1 },
+        { q: "What is a contradiction?", options: ["Always false", "Always true", "Sometimes false", "Cannot determine"], correct: 0 },
+        { q: "In computers, what does 0 represent?", options: ["True", "False", "Neither", "Both"], correct: 1 },
+        { q: "In computers, what does 1 represent?", options: ["True", "False", "Neither", "Both"], correct: 0 },
+        { q: "What is ~T (not True)?", options: ["True", "False", "Cannot tell", "Invalid"], correct: 1 },
+        { q: "If p is true, what is ~p?", options: ["True", "False", "Depends", "Cannot tell"], correct: 1 },
+        { q: "p ∧ q means:", options: ["p AND q", "p OR q", "NOT p", "p IF q"], correct: 0 },
+        { q: "p ∨ q means:", options: ["p AND q", "p OR q", "NOT p", "p IF q"], correct: 1 },
+        { q: "~p means:", options: ["p AND q", "p OR q", "NOT p", "p IF q"], correct: 2 },
+        { q: "p → q means:", options: ["p AND q", "p OR q", "NOT p", "IF p THEN q"], correct: 3 }
+    ];
+    
+    // Function to shuffle an array (Fisher-Yates shuffle algorithm)
+    function shuffleArray(array) {
+        const shuffled = [...array]; // Create a copy to avoid mutating the original
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    }
+    
+    // Function to randomly select 10 questions from all questions
+    function getRandomQuestions(count = 10) {
+        const shuffled = shuffleArray(allQuizQuestions);
+        return shuffled.slice(0, count);
+    }
+    
     let quizState = {
         studentName: '',
         currentQuestion: 0,
         score: 0,
         selectedAnswers: [],
-        questions: [
-            { q: "What is a proposition?", options: ["A question", "A statement that is either true or false", "A mathematical equation", "A computer program"], correct: 1 },
-            { q: "Which operator means 'AND'?", options: ["→", "∨", "∧", "~"], correct: 2 },
-            { q: "Which operator means 'OR'?", options: ["→", "∨", "∧", "~"], correct: 1 },
-            { q: "What does ∧ mean?", options: ["AND", "OR", "NOT", "IF-THEN"], correct: 0 },
-            { q: "What does ∨ mean?", options: ["AND", "OR", "NOT", "IF-THEN"], correct: 1 },
-            { q: "What does ~ mean?", options: ["AND", "OR", "NOT", "IF-THEN"], correct: 2 },
-            { q: "What does → mean?", options: ["AND", "OR", "NOT", "IF-THEN"], correct: 3 },
-            { q: "In p ∧ q, when is the result TRUE?", options: ["When p is true", "When q is true", "When BOTH are true", "When at least one is true"], correct: 2 },
-            { q: "In p ∨ q, when is the result TRUE?", options: ["Only when both are true", "Only when one is true", "When AT LEAST ONE is true", "Never"], correct: 2 },
-            { q: "A truth table for 2 variables has how many rows?", options: ["2", "3", "4", "5"], correct: 2 },
-            { q: "What is a tautology?", options: ["Always false", "Always true", "Sometimes true", "Cannot determine"], correct: 1 },
-            { q: "What is a contradiction?", options: ["Always false", "Always true", "Sometimes false", "Cannot determine"], correct: 0 },
-            { q: "In computers, what does 0 represent?", options: ["True", "False", "Neither", "Both"], correct: 1 },
-            { q: "In computers, what does 1 represent?", options: ["True", "False", "Neither", "Both"], correct: 0 },
-            { q: "What is ~T (not True)?", options: ["True", "False", "Cannot tell", "Invalid"], correct: 1 },
-            { q: "If p is true, what is ~p?", options: ["True", "False", "Depends", "Cannot tell"], correct: 1 },
-            { q: "p ∧ q means:", options: ["p AND q", "p OR q", "NOT p", "p IF q"], correct: 0 },
-            { q: "p ∨ q means:", options: ["p AND q", "p OR q", "NOT p", "p IF q"], correct: 1 },
-            { q: "~p means:", options: ["p AND q", "p OR q", "NOT p", "p IF q"], correct: 2 },
-            { q: "p → q means:", options: ["p AND q", "p OR q", "NOT p", "IF p THEN q"], correct: 3 }
-        ]
+        questions: [] // Will be populated with 10 random questions when quiz starts
     };
 
     // Global functions for quiz
@@ -1970,6 +1989,9 @@ document.addEventListener('DOMContentLoaded', () => {
         quizState.currentQuestion = 0;
         quizState.score = 0;
         quizState.selectedAnswers = [];
+        
+        // Randomly select and shuffle 10 questions from all available questions
+        quizState.questions = getRandomQuestions(10);
         
         // Hide error if validation passes
         errorDiv.style.display = 'none';
